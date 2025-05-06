@@ -1,0 +1,176 @@
+@use '../_variables' as *;
+@use 'animation/properties';
+@use 'animation/fade';
+
+//	count        specifies the number of times an animation is played. Default 1
+//	duration     specifies how many seconds or milliseconds an animation takes to complete one cycle. Default 0
+//	delay        specifies delay before the animation starts. Default 0
+//	function     describes how the animation will progress over one cycle of its duration. Default "ease"
+//	fill-mode    specifies if the effects of an animation are before the animation starts and after it ends.
+//	visibility   determines whether or not a transformed element is visible when it is not facing the screen.
+
+$ListAnim : (
+	fadeIn,
+	fadeInUp,
+	fadeInDown,
+	fadeInLeft,
+	fadeInRight
+);
+
+$ListAnimSetting : (
+	// increment - iteration
+	1, 10
+);
+
+.to-anim {
+	transition: none !important;
+	// fade-in
+	&.fade-in {
+		opacity: 0;
+
+		&.is-visible {
+			@include fade.fadeIn(1, 0.7s, .2s, $ease-in);
+		}
+	}
+	// fade-in-down
+	&.fade-in-down {
+		opacity: 0;
+
+		&.is-visible {
+			@include fade.fadeInDown(1, 0.8s, .25s, $ease-in);
+		}
+	}
+	// fade-in-up
+	&.fade-in-up {
+		opacity: 0;
+
+		&.is-visible {
+			@include fade.fadeInUp(1, 0.8s, .25s, $ease-in);
+		}
+	}
+	// fade-in-left
+	&.fade-in-left {
+		opacity: 0;
+
+		&.is-visible {
+			@include fade.fadeInLeft(1, 0.8s, .25s, $ease-in);
+		}
+	}
+	// fade-in-right
+	// ** This one causes the element to overflow on the right.
+	&.fade-in-right {
+		opacity: 0;
+
+		&.is-visible {
+			@include fade.fadeInRight(1, 0.8s, .25s, $ease-in);
+		}
+	}
+}
+
+// **---------------------------------------------------**
+// -------------------------------------------------------
+// m-ws BEGIN
+@mixin make-mw-item() {
+    transition: all $ease-in .45s;
+}
+
+.m-ws {
+	.m-ws-item {
+		transition: all $ease-in .45s;
+
+		// translate
+		&--translate-gentle {
+            @include make-mw-item();
+			transform: translate(0, 25px);
+
+            &.is-visible {
+                transform: translate(0, 0);
+            }
+		}
+
+		&--translate-height {
+            @include make-mw-item();
+			transform: translate(0, 100%);
+
+            &.is-visible {
+                transform: translate(0, 0);
+            }
+		}
+
+		// opacity
+		&--opacity {
+            @include make-mw-item();
+			opacity: 0;
+
+            &.is-visible {
+                opacity: 1
+            }
+		}
+
+		// delay
+		&--delay-0 {
+            @include make-mw-item();
+			transition-delay: 0s!important;
+		}
+
+		@for $i from 1 through 10 {
+			&--delay-#{$i} {
+                @include make-mw-item();
+				transition-delay: $i * 0.15s!important;
+			}
+		}
+	}
+
+	// &.is-visible {
+	// 	.m-ws-item {
+	// 		&[class*="--translate"] {
+	// 			transform: translate(0, 0);
+	// 		}
+
+	// 		&--opacity {
+	// 			opacity: 1;
+	// 		}
+	// 	}
+	// }
+}
+// m-ws END
+// -------------------------------------------------------
+// **---------------------------------------------------**
+
+@keyframes rotation {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes slowPulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.25);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@mixin slowPulse($duration: 2s) {
+    animation: slowPulse $duration ease-in-out infinite;
+}
+
+@keyframes borderRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+

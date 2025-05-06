@@ -1,0 +1,434 @@
+@use '../_variables' as *;
+@use '../_config' as config;
+@use '../imports/mixin';
+@use '../imports/mediaq' as *;
+@use '../imports/mixins/_form' as form;
+@use '../imports/mixins/_typo' as typo;
+
+.c-formElement {
+	@include form.input-placeholder(var(--font-base), inherit, inherit);
+	margin-bottom: var(--margin-normal);
+	color: var(--white);
+
+	input {
+		@include form.input-reset();
+		color: var(--white);
+	}
+
+	&--focusLine {
+		display: inline-block;
+		position: absolute;
+		top: -1px;
+		right: -1px;
+		bottom: -1px;
+		left: -1px;
+		z-index: 100;
+		pointer-events: none;
+		border-radius: 5px;
+		border: 1px solid;
+		border-color: transparent;
+		transition: border-color .35s $ease-in;
+	}
+
+	/* Input
+	  ========================================================================== */
+	&--bordered {
+		position: relative;
+		background: transparent;
+		margin-bottom: 35px;
+		outline: 1px solid var(--white);
+		border-radius: 5px;
+		@include form.label-up();
+
+		input {
+			@include form.input-reset();
+			color: var(--white);
+		}
+
+		// Colored line on focus
+		input:focus ~ .c-formElement--focusLine {
+			& {
+				border-color: var(--secondary);
+			}
+		}
+
+		textarea:focus ~ .c-formElement--focusLine {
+			& {
+				border-color: var(--secondary);
+			}
+		}
+
+		&--primary {
+			outline: 1px solid var(--primary);
+			input {
+				@include form.input-reset();
+				color: var(--white);
+			}
+		}
+
+		@include media('>MD') {
+			& {
+				margin-bottom: 45px;
+			}
+		}
+	}
+
+	/* Checkbox / Radio
+		========================================================================== */
+	&--checkbox,
+	&--radio {
+		@include form.input-checkbox-reset();
+
+		&:first-child ~ & {
+			& {
+				margin-left: 0.8em;
+			}
+		}
+
+		// Checked state 
+		:checked + label {
+			&::before {
+				& {
+					background: var(--primary);
+					border-color: var(--primary);
+				}
+			}
+		}
+	}
+
+	&--radio {
+		label {
+			&::before {
+				& {
+					border-radius: 40px;
+				}
+			}
+		}
+	}
+
+	&--checkboxSvg {
+		display: inline-block;
+
+		input{
+			display: none!important;
+		}
+
+		// checked state
+		input:checked ~ label svg path {
+			& {
+				stroke-dashoffset: 0;
+			}
+		}
+		
+		label {
+			position: relative;
+			display: flex;
+			align-items: center;
+			margin-bottom: 0;
+			cursor: pointer;
+		}
+		
+		input ~ label svg {
+			width: 1.1em;
+			height: 1.1em; 
+			border: 1px solid var(--primary);
+			margin-right: 10px;
+		}
+
+		input ~ label svg path {
+			transition: stroke-dashoffset .3s $ease-in;
+			fill: none;
+			stroke: var(--primary);
+			stroke-dasharray: 270;
+			stroke-dashoffset: 270;
+			stroke-width: 5px;
+		}
+	}
+
+	/* Select
+		========================================================================== */
+	&--select {
+		&--bordered {
+			position: relative;
+			background: transparent;
+			outline: 1px solid var(--white);
+			border-radius: 5px;
+			margin-bottom: 22px;
+			color: var(--white);
+
+			svg {
+				position: absolute;
+				top: 50%;
+				right: var(--padding-thinner);
+				transform: translate3d(0, -50%, 0);
+				width: 24px;
+				fill: var(--white);
+				pointer-events: none;
+			}
+
+			select {
+				appearance: none;
+				color: var(--white);
+				border-radius: 5px;
+				background: transparent;
+				border: none;
+				font-size: var(--font-base);
+				padding: var(--padding-thinner) calc(var(--padding-thinner) + 2em) var(--padding-thinner) var(--padding-thinner);
+				outline: none;
+				width: 100%;
+
+				&::-ms-expand {
+					display: none;
+				}
+			}
+
+			&[data-icon] {
+				&::before {
+					pointer-events: none;
+				}
+			}
+
+			// Colored line on focus
+			select:focus ~ .c-formElement--focusLine {
+				& {
+					border-color: var(--secondary);
+				}
+			}
+
+			&--primary {
+				color: var(--primary);
+
+				svg {
+					fill: var(--primary);
+				}
+
+				select {
+					color: var(--primary);
+				}
+			}
+
+			@include media('>MD') {
+				& {
+					margin-bottom: 25px;
+				}
+			}
+		}
+	}
+
+	&--altselect {
+		display: flex;
+		align-items: center;
+		margin-bottom: 21px;
+
+		label {
+			color: var(--white);
+			margin-bottom: 0;
+			margin-left: 20px;
+			line-height: 1.2;
+		}
+
+		&__inner {
+			position: relative;
+
+			select {
+				position: relative;
+				appearance: none;
+				color: var(--white);
+				border-radius: 5px;
+				background: transparent;
+				padding: 4px 20px 4px 15px;
+				border: none;
+				font-size: var(--font-base);
+				outline: none;
+				border: 1px solid var(--white);
+				z-index: 2;
+	
+				&::-ms-expand {
+					display: none;
+					color: var(--white);
+					background: var(--white);
+				}
+			}
+
+			svg {
+				position: absolute;
+				width: 20px;
+				top: 50%;
+				right: 5px;
+				transform: translate(0, -50%);
+				fill: var(--white);
+				z-index: 0;
+				pointer-events: none;
+			}
+		}
+
+		@include media('>LG') {
+			label {
+				& {
+					margin-left: 25px;
+				}
+			}
+		}
+
+		@include media('>XLG') {
+			label {
+				& {
+					margin-left: 30px;
+				}
+			}
+		}
+	}
+
+	/* File Upload
+		========================================================================== */
+	&--upload {
+		input {
+			@include form.visually-hidden();
+		}
+
+		label {
+			background: none;
+			border: none;
+			margin: 0 !important;
+			padding: var(--padding-thinner);
+			width: 100%;
+		}
+
+		&--bordered {
+			position: relative;
+			background: transparent;
+			border-radius: 5px;
+			outline: 1px solid var(--white);
+			margin-bottom: 25px;
+
+			svg {
+				position: absolute;
+				top: 50%;
+				right: var(--padding-thinner);
+				transform: translate3d(0, -50%, 0);
+				width: 24px;
+				fill: var(--white);
+				pointer-events: none;
+			}
+
+			input {
+				@include form.visually-hidden();
+			}
+
+			label {
+				background: none;
+				color: var(--white);
+				border: none;
+				margin: 0 !important;
+				padding: var(--padding-thinner) calc(var(--padding-thinner) + 2em) var(--padding-thinner) var(--padding-thinner);
+				width: 100%;
+				min-height: 54px;
+			}
+
+			// Colored line on focus
+			input:focus ~ .c-formElement--focusLine {
+				border-color: var(--secondary);
+			}
+
+			&--primary {
+				outline: 1px solid var(--primary);
+
+				svg {
+					fill: var(--primary);
+				}
+
+				label {
+					color: var(--primary);
+				}
+			}
+
+			@include media('>MD') {
+				& {
+					margin-bottom: 25px;
+				}
+			}
+		}
+	}
+
+	/* Textarea
+		========================================================================== */
+	&--boxed, &--bordered, &--line {
+		textarea {
+			background: none;
+			border: none;
+			font-size: var(--font-base);
+			height: auto;
+			max-width: 100%;
+			min-height: 180px;
+			padding: 15px;
+			outline: none;
+			width: 100%;
+			border-radius: 5px;
+			color: var(--white);
+		}	
+	}
+
+	&--primary {
+		textarea {
+			background: none;
+			border: none;
+			font-size: var(--font-base);
+			height: auto;
+			max-width: 100%;
+			min-height: 180px;
+			padding: 15px;
+			outline: none;
+			width: 100%;
+			border-radius: 5px;
+			color: var(--white);
+		}
+	}
+
+	/* Submit Button
+		========================================================================== */
+	&--submit {
+		margin-top: 20px;
+		text-align: center;
+	}
+
+	&.has-error, &.has-success, &.has-warning {
+		margin-bottom: 10px;
+
+		& + label {
+			text-align: center;
+			margin-bottom: 25px;
+		}
+	}
+
+	&--primary {
+		color: var(--primary);
+
+		input {
+			@include form.input-reset();
+			color: var(--white);
+		}
+	}
+}
+
+label, .c-label {
+	align-items: center;
+	column-gap: 10px;
+	display: flex;
+	flex-flow: row nowrap;
+	margin-bottom: var(--margin-thinner);
+
+	svg {
+		height: 24px;
+		width: 24px;
+	}
+}
+
+@include media('>MD') {
+	.c-formElement {
+		&--upload {
+			&--bordered {
+				margin-bottom: 25px;
+			}
+		}
+	}
+}

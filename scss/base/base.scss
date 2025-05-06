@@ -1,0 +1,693 @@
+@use '../_variables' as *;
+@use '../_config' as config;
+@use '../imports/mixin';
+@use '../imports/mediaq' as *;
+@use 'validation';
+@use 'button';
+@use 'form';
+@use '../imports/mixins/typo' as typo;
+
+// **---------------------------------------------------**
+//  Root variables
+// -------------------------------------------------------
+:root {
+	// Colors
+	@each $name, $value in config.$theme-colors {
+		--#{$name}: #{$value};
+	}
+	@each $name, $value in config.$theme-monochromes {
+		--#{$name}: #{$value};
+	}
+
+	--body-text-color: #{$body-text-color};
+	--body-link-color: #{var(--primary)};
+	--body-heading-color: #{var(--body-text-color)};
+	--body-bg-color: #{$body-bg-color};
+
+	// Typography
+	--font-base: #{$font-base};
+	--font-base-unit: #{$font-base-unit};
+	--font-line-height: #{$font-line-height};
+	--font-letter-spacing: #{$font-letter-spacing};
+
+	// Font Families
+	--font-primary: #{$font-primary};
+	--font-secondary: #{$font-secondary};
+
+	// Font Weight
+	--font-extra-light: #{$font-extra-light};
+	--font-light: #{$font-light};
+	--font-regular: #{$font-regular};
+	--font-medium: #{$font-medium};
+	--font-semi-bold: #{$font-semi-bold};
+	--font-bold: #{$font-bold};
+    --font-extra-bold: #{$font-extra-bold};
+	--font-black: #{$font-black};
+
+    // Heading
+	--h1: #{$h1};
+	--h2: #{$h2};
+	--h3: #{$h3};
+	--h4: #{$h4};
+	--h5: #{$h5};
+	--h6: #{$h6};
+
+    --heading-line-height: #{$heading-line-height};
+    --font-heading: #{$font-heading};
+	--font-heading-weight: #{$font-heading-weight};
+	--font-heading-color: #{$font-heading-color};
+
+    // Responsive heading
+	@include media('>SM') {
+		:root {
+			& {
+				--h1: 50px;
+			}
+		}
+	}
+		
+	@include media('>MD') {
+		:root {
+			& {
+				--h1: 55px;
+				--h2: 45px;
+				--h3: 35px;
+				--h4: 30px;
+				--h5: 28px;
+				--h6: 24px;
+			}
+		}
+	}
+	
+	@include media('>LG') {
+		:root {
+			& {
+				--h1: 60px;
+				--h2: 50px;
+				--nav-inner-scroll-padding: 65px;
+			}
+		}
+	}
+
+	@include media('>XLG') {
+		:root {
+			& {
+				--h1: 70px;
+				--h2: 55px;
+				--h3: 40px;
+			}
+		}
+	}
+
+    // Validation
+    & {
+        --success: #{$success};
+        --warning: #{$warning};
+        --error: #{$error};
+        --info: #{$info};
+
+        // Needed global variables
+        --nav-inner-scroll-padding: 180px;
+
+        // Transitions
+        --stand-curve: #{$stand-curve};
+        --decel-curve: #{$decel-curve};
+        --accel-curve: #{$accel-curve};
+        --sharp-curve: #{$sharp-curve};
+        --ease-in: #{$ease-in};
+    }
+}
+
+
+// **---------------------------------------------------**
+//  Document base style
+// -------------------------------------------------------
+html {
+	-moz-osx-font-smoothing: grayscale;
+	-ms-overflow-style: scrollbar;
+	-ms-text-size-adjust: 100%;
+	-webkit-font-smoothing: antialiased;
+	-webkit-tap-highlight-color: rgba(var(--primary), 0.15);
+	-webkit-text-size-adjust: 100%;
+	background-color: var(--black);
+	color: var(--body-text-color);
+	font-family: var(--font-primary);
+	font-size: var(--font-base);
+	height: 100%;
+	line-height: var(--font-line-height);
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	scroll-behavior: smooth;
+}
+
+body {
+	background-color: var(--black);
+	color: var(--body-text-color);
+	font-family: var(--font-primary);
+	font-size: var(--font-base);
+	line-height: var(--font-line-height);
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	height: 100%;
+	position: relative;
+
+	&::before {
+		content: '';
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: var(--black);
+		z-index: 9999;
+		pointer-events: none;
+		transition: opacity 0.3s ease-out;
+	}
+
+	&.js-content-ready {
+		&::before {
+			opacity: 0;
+		}
+	}
+
+	&.js-page-loading {
+		&::before {
+			opacity: 1;
+		}
+	}
+}
+
+// Site container
+.c-siteContainer {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	width: 100%;
+	position: relative;
+	z-index: 1;
+}
+
+::-moz-selection {
+	background-color: var(--primary);
+	color: var(--white);
+}
+
+::selection {
+	background-color: var(--primary);
+	color: var(--white);
+}
+
+// **---------------------------------------------------**
+//  Heading
+// -------------------------------------------------------
+.gradient-heading {
+	background: var(--yellow-gradient);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	text-fill-color: transparent;
+}
+
+@mixin heading-styles {
+	font-family: var(--font-heading);
+	line-height: var(--heading-line-height);
+	font-weight: var(--font-heading-weight);
+	color: var(--font-heading-color);
+	text-transform: uppercase;
+	margin-bottom: 0.5em;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+	@include heading-styles;
+}
+
+// Custom heading style
+.h1-line, .h2-line {
+	display: inline-block;
+	position: relative;
+
+	&:before {
+		content: '';
+		position: absolute;
+		bottom: -10px;
+		left: 0;
+		width: 60%;
+		height: 3px;
+		background: var(--yellow-gradient);
+	}
+}
+
+h1, .h1 {
+	font-size: var(--h1);
+}
+
+h2, .h2 {
+	font-size: var(--h2);
+}
+
+h3, .h3 {
+	font-size: var(--h3);
+}
+
+h4, .h4 {
+	font-size: var(--h4);
+}
+
+h5, .h5 {
+	font-size: var(--h5);
+}
+
+h6, .h6 {
+	font-size: var(--h6);
+}
+
+// **---------------------------------------------------**
+//  Body elements
+// -------------------------------------------------------
+p {
+	@include typo.fsize(16);
+	& {
+		margin-bottom: 1.3em;
+		letter-spacing: var(--font-letter-spacing);
+	}
+
+	@include media('>LG') {
+		@include typo.fsize(18);
+	}
+
+	@include media('>XXLG') {
+		@include typo.fsize(20);
+	}
+}
+
+a {
+	color: var(--body-link-color);
+	font-weight: var(--font-bold);
+	text-decoration: none;
+	transition: all .35s $ease-in;
+
+	&:hover, &:active, &:focus {
+		color: var(--primary-lighter);
+		text-decoration: none;
+	}
+}
+
+ul, ol {
+	&[class] {
+		list-style: none;
+		padding: 0;
+	}
+
+	// when no class is applied (useful for styling wysiwyg ul and ol)
+	&:not([class]) {
+		padding-left: 1.5rem;
+	}
+
+	li { 
+		@include typo.fsize(16);
+		& {
+			color: var(--body-text-color);
+			margin-bottom: 0.4em;
+			padding-bottom: 0.4em;
+		}
+	}
+}
+
+svg {
+	width: 100%;
+	height: auto;
+	max-width: 100%;
+}
+
+img {
+	height: auto;
+	max-width: 100%;
+	width: 100%;
+}
+
+picture {
+	display: block;
+	height: 100%;
+}
+
+table {
+	font-weight: var(--font-semi-bold);
+	margin-bottom: 30px;
+	width: 100%;
+
+	th {
+		@include typo.fsize(11);
+		text-transform: uppercase;
+	}
+
+	td {
+		@include typo.fsize(13);
+	}
+
+	th, td {
+		border: var(--gray-400);
+		padding: 10px;
+
+		&:empty {
+			background: var(--gray-400);
+		}
+	}
+}
+
+hr {
+	background: var(--gray-400);
+	border: none;
+	height: 1px;
+	margin: 2rem 0;
+}
+
+// **---------------------------------------------------**
+//  Utilities
+// -------------------------------------------------------
+.Text--center {
+    text-align: center;
+}
+
+// **---------------------------------------------------**
+//  For customer / CMS entered content
+// -------------------------------------------------------
+.Editable {
+	> * {
+		&:first-child {
+			margin-top: 0!important;
+		}
+		&:last-child {
+			margin-bottom: 0!important;
+		}
+	}
+
+	h1, h2, h3, h4, h5, h6,
+	.h1, .h2, .h3, .h4, .h5, .h6 {
+		& {
+			margin-top: 1.5em;
+			margin-bottom: 0.5em;
+		}
+	}
+
+	span {
+		& {
+			display: inline-block;
+		}
+	}
+
+	a {
+		& {
+			text-decoration: underline;
+		}
+	}
+
+    a {
+		& {
+			color: var(--orange-red);
+			font-weight: var(--font-regular);
+			text-decoration: underline;
+		}
+    
+        &:hover, &:active, &:focus {
+			& {
+				color: var(--primary);
+			}
+        }
+    }
+
+	ul {
+		list-style: none;
+		padding: 0;
+
+		&:not([class]) {
+			li {
+				& {
+					padding-left: 30px;
+					position: relative;
+				}
+
+				&:before {
+					& {
+						content:'';
+						background: var(--body-text-color);
+						position: absolute;
+						top: .9em;
+						left: 0;
+						height: 1px;
+						width: 16px;
+						transform: translateY(-50%);
+					}
+				}
+
+				&:last-child {
+					& {
+						padding-bottom: 0;
+						margin-bottom: 0;
+					}
+				}
+			}
+		}
+	}
+
+    ol {
+		list-style: none;
+		padding: 0;
+		counter-reset: ol;
+
+		li {
+			padding-left: 40px;
+			position: relative;
+			counter-increment: ol;
+
+			&:before {
+				content: counter(ol);
+				position: absolute;
+				top: .9em;
+				left: 0;
+				@include typo.fsize(15);
+				color: var(--body-text-color);
+				transform: translateY(-50%);
+			}
+
+            &:after {
+                content:'';
+                background: var(--body-text-color);
+                position: absolute;
+                top: .9em;
+                left: 12px;
+                height: 1px;
+                width: 16px;
+                transform: translateY(-50%);
+            }
+
+			&:last-child {
+				padding-bottom: 0;
+				margin-bottom: 0;
+			}
+		}
+    }
+
+	// 	white
+	&--white {
+		& {
+			color: var(--white);
+		}
+
+		h1, h2, h3, h4, h5, h6,
+		.h1, .h2, .h3, .h4, .h5, .h6 {
+			& {
+				color: var(--white);
+			}
+		}
+
+		p, span, blockquote {
+			& {
+				color: var(--white);
+			}
+		}
+
+		ul {
+			&:not([class]) {
+				li {
+					& {
+						color: var(--white);
+					}
+					&:before {
+						& {
+							background: var(--white);
+						}
+					}
+				}
+			}
+		}
+
+		ol {
+			&:not([class]) {
+				li {
+					& {
+						color: var(--white);
+					}
+				}
+			}
+		}
+
+		a {
+			& {
+				display: inline-block;
+				color: var(--primary);
+				font-family: var(--font-secondary);
+			}
+
+			&:hover, &:active, &:focus {
+				& {
+					color: var(--primary-lighter);
+					text-decoration: none;
+				}
+			}
+		}
+	}
+
+	img {
+		width: auto;
+	}
+}
+
+// Helpers
+.overflow--hidden {
+	overflow: hidden;
+}
+
+button {
+	background: none;
+	border: none;
+    padding: 0;
+	outline: none !important;
+}
+
+span, a {
+	display: block;
+}
+
+// **---------------------------------------------------**
+//  Scrollbar styling
+// -------------------------------------------------------
+
+::-webkit-scrollbar {
+    width: 8px;
+    //height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--black);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 3px;
+    
+    &:hover {
+        background: $primary-dark;
+    }
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) var(--black);
+}
+
+// **---------------------------------------------------**
+//  First load animation
+// -------------------------------------------------------
+.c-loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--black);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+
+    &--hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    &__content {
+        text-align: center;
+    }
+
+    &__logo {
+        width: 150px;
+        height: auto;
+        opacity: 1;
+        animation: pulse 2s ease-in-out infinite;
+        padding: 5px;
+
+        @include media('>SM') {
+            & {
+                width: 165px;
+            }
+        }
+
+        @include media('>MD') {
+            & {
+                width: 200px;
+            }
+        }
+
+        @include media('>LG') {
+            & {
+                width: 250px;
+            }
+        }
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@mixin list-item-before {
+    content:'';
+    background: var(--body-text-color);
+    position: absolute;
+    top: .9em;
+    left: 0;
+    height: 1px;
+    width: 16px;
+    transform: translateY(-50%);
+}
+
+.Editable {
+    ul {
+        &:not([class]) {
+            li {
+                &:before {
+                    @include list-item-before;
+                }
+            }
+        }
+    }
+}

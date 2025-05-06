@@ -1,0 +1,142 @@
+@use '../_variables' as *;
+@use '../imports/mediaq' as *;
+
+.c-headerHome {
+    & {
+        --headerHomeTopPadding: 150px;
+        --headerHomeBottomPadding: 180px;
+        --headerHomeImgPadding: 91px;
+        --headerHomeContentWidth: 320px;
+        --headerHomeTitleWidth: 296px;
+        --headerHomeTextSpacing: 30px;
+        --headerHomeBtnSpacing: 44px;
+    }
+    
+    position: relative;
+    padding: var(--headerHomeTopPadding) 0 var(--headerHomeBottomPadding) 0;
+    z-index: 0;
+    flex-shrink: 0;
+
+    // TODO, voir pour que le headerHome et tout les autres header aille la hauteur de la nav comme margin-top ou padding-top présentement dans ce header le padding est gerer avec le top et la variable --headerHomeTopPadding et ce n'est pas idéal même si ça fonctionne bien pour l'instant. ** voir le JS du banner spacer qui ne semble pas mettre la hauteur comme prévu.
+
+    // Gradient
+    &:before {
+        content: '';
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+        background: linear-gradient(135deg, rgba(19, 78, 94, 0.7) 0%, rgba(47, 46, 46, 0.3) 100%);
+		z-index: 1;
+    }
+
+    &__img {
+        position: absolute;
+        //top: var(--headerHomeImgPadding);
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: -1;
+
+        img {
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    &__content {
+        position: relative;
+        z-index: 2;
+        margin: 0 auto;
+        text-align: center;
+        max-width: var(--headerHomeContentWidth);
+
+        &--title {
+            max-width: var(--headerHomeTitleWidth);
+            margin: 0 auto;
+        }
+
+        &--text {
+            margin-top: var(--headerHomeTextSpacing);
+        }
+
+        &--btn {
+            margin-top: var(--headerHomeBtnSpacing);
+        }
+    }
+
+
+    //________________________________________________________
+    //MEDIA QUERIES
+
+    @include media('>428px') {
+        & {
+            --headerHomeContentWidth: 378px;
+        }
+    }
+
+    @include media('>XS') {
+        & {
+            --headerHomeTitleWidth: initial;
+            --headerHomeContentWidth: 400px;
+            --headerHomeTextWidth: 360px;
+        }
+
+        &__content {
+            &--text {
+                max-width: var(--headerHomeTextWidth);
+                margin: var(--headerHomeTextSpacing) auto 0 auto;
+            }
+        }
+    }
+
+    @include media('>SM') {
+        & {
+            --headerHomeImgPadding: 105px;
+            --headerHomeTopPadding: 156px;
+            --headerHomeBottomPadding: 271px;
+            --headerHomeContentWidth: 600px;
+            --headerHomeTextWidth: 560px;
+        }
+    }
+
+    @include media('>MD') {
+        & {
+            --headerHomeTopPadding: 176px;
+            --headerHomeBottomPadding: 291px;
+            --headerHomeContentWidth: 640px;
+            --headerHomeContentWidth: 600px;
+            --headerHomeBtnSpacing: 50px;
+        }
+    }
+
+    @include media('>LG') {
+        & {
+            --headerHomeTopPadding: 206px;
+            --headerHomeImgPadding: 98px;
+            --headerHomeBtnSpacing: 60px;
+            --headerHomeContentWidth: 700px;
+        }
+    }
+
+    @include media('>XLG') {
+        & {
+            --headerHomeTopPadding: 236px;
+            --headerHomeImgPadding: 112px;
+            --headerHomeBtnSpacing: 70px;
+            --headerHomeContentWidth: 760px;
+        }
+    }
+
+    @include media('>XXLG') {
+        & {
+            --headerHomeTopPadding: 264px;
+            --headerHomeImgPadding: 120px;
+            --headerHomeBtnSpacing: 80px;
+            --headerHomeContentWidth: 840px;
+            --headerHomeTextWidth: 800px;
+        }
+    }
+}

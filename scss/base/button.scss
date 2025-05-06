@@ -1,0 +1,91 @@
+@use '../_variables' as *;
+@use '../_config' as config;
+@use '../imports/mixins/button' as button;
+@use '../imports/mediaq' as *;
+@use '../imports/mixins/typo' as typo;
+
+.Btn {
+	@include button.make-button();
+
+	&--secondary {
+		& {
+			@include button.make-button();
+			& {
+				border: 2px solid var(--tertiary);
+				color: var(--tertiary);
+				transition: all $ease-in .3s;
+			}
+
+			&:hover {
+				background: var(--tertiary);
+				color: var(--primary);
+			}
+		}
+	}
+
+	&:hover {
+		& {
+			background: var(--yellow-gradient);
+			border: 2px solid var(--primary);
+			color: var(--white);
+			transition: all $ease-in .3s;
+		}
+	}
+
+	&--icon {
+		& {
+			--padding-right-initial: 35px;
+			--padding-right-value: 18px;
+			--svg-right-value: 20px;
+			position: relative;
+			@include typo.fsize(16);
+			@include button.make-button();
+			& {
+				font-family: var(--font-secondary);
+				font-weight: var(--font-regular);
+				letter-spacing: 1.6px;
+				padding-right: calc(var(--padding-right-value) + var(--padding-right-initial));
+			}
+		}
+
+		svg {
+			position: absolute;
+			top: 50%;
+			right: var(--svg-right-value);
+			transform: translate3d(0, -50%, 0);
+			width: 14px;
+			transition: all $ease-in .3s;
+			
+			path {
+				stroke: var(--primary);
+				transition: all $ease-in .3s;
+			}
+		}
+
+		&:hover, &:active, &:focus {
+			& {
+				background: var(--primary);
+				border: 1px solid var(--primary);
+				color: var(--white);
+			}
+
+			svg {
+				path {
+					stroke: var(--white);
+				}
+			}
+		}
+
+		// **---------------------------------------------------**
+		// MEDIA QUERIES
+		@include media('>#{$scr-xlg}') {
+			& {
+				padding-right: calc(var(--padding-right-value) + 43px);
+				
+				svg {
+					right: 27px;
+				}
+			}
+		}
+	}
+}

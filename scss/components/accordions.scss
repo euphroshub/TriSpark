@@ -1,0 +1,167 @@
+@use '../_variables' as *;
+@use '../imports/mixins/typo' as typo;
+@use '../imports/mediaq' as *;
+
+.c-Accordions {
+	& {
+		--titleLeftPadding: 14px;
+		--titleRightPadding: 14px;
+		--titleTBPadding: 12px;
+		--ItemSpacing: 30px;
+		--contentPadding: 25px;
+		--arrowSize: 30px;
+		--collapseBtnSize: 61px;
+	}
+	
+	$parent: &;
+
+	&__item {
+		position: relative;
+		background: var(--secondary);
+		margin-bottom: var(--ItemSpacing);
+		transition: all $ease-in .3s;
+		
+		&.is-open {
+			&:before {
+				background: var(--primary);
+			}
+
+			#{$parent}__toggle {
+				background: var(--secondary-light);
+
+				.-title {
+					color: var(--primary);
+				}
+
+				.-btn {
+					svg {
+						transform: rotate(-90deg);
+					}
+				}
+			}
+
+			#{$parent}__inner {
+				pointer-events: all;
+			}
+		}
+	}
+
+	&__toggle {
+		background: none;
+		border: none;
+		width: 100%;
+		display: flex;
+		align-items: stretch;
+		justify-content: space-between;
+		transition: all $ease-in .4s;
+
+		.-title {
+			@include typo.fsize(16);
+			color: var(--white);
+			font-family: var(--font-primary);
+			font-weight: var(--font-semi-bold);
+			transition: all $ease-in .45s;
+			align-self: center;
+			text-align: left;
+			margin-bottom: 0;
+			padding: var(--titleTBPadding) var(--titleRightPadding) var(--titleTBPadding) var(--titleLeftPadding);
+		}
+
+		.-btn {
+			position: relative;
+			background: var(--primary);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			// padding: 22px 29px;
+			flex: 0 0 var(--collapseBtnSize);
+			outline: none;
+
+			svg {
+				width: var(--arrowSize);
+				fill: var(--secondary);
+				transform: rotate(90deg);
+				transition: all $ease-in .35s;
+			}
+		}
+	}
+		
+	&__inner {
+		pointer-events: none;
+		padding: 0 var(--titleRightPadding) 0 var(--titleLeftPadding);
+
+		> div {
+			transition: height $ease-in .45s;
+			width: 100%;
+
+			.-content {
+				padding: var(--contentPadding) 0;
+			}
+
+			.Editable {
+				p:last-child {
+					margin: 0;
+				}
+			}
+
+			a {
+				display: inline-block;
+				color: var(--primary);
+				font-family: var(--font-secondary);
+			}
+		}
+	}
+	
+	@include media('>MD') {
+		& {
+			--titleLeftPadding: 20px;
+			--titleRightPadding: 60px;
+			--titleTBPadding: 16px;
+		}
+
+		&__toggle {
+			.-title {
+				@include typo.fsize(18);
+			}
+		}
+	}
+
+	@include media('>LG') {
+		& {
+			--titleLeftPadding: 25px;
+			--titleRightPadding: 125px;
+			--titleTBPadding: 18px;
+			--contentPadding: 30px;
+			--collapseBtnSize: 74px;
+		}
+
+		&__inner {
+			padding: 0 calc(var(--titleRightPadding) + var(--collapseBtnSize)) 0 var(--titleLeftPadding);
+		}
+	}
+
+	@include media('>XLG') {
+		& {
+			--titleLeftPadding: 30px;
+			--titleRightPadding: 200px;
+			--titleTBPadding: 20px;
+			--contentPadding: 35px;
+			--arrowSize: 33px;
+		}
+
+		&__toggle {
+			.-title {
+				@include typo.fsize(20);
+			}
+		}
+	}
+
+	@include media('>XXLG') {
+		& {
+			--titleLeftPadding: 34px;
+			--titleRightPadding: 296px;
+			--titleTBPadding: 24px;
+			--contentPadding: 38px;
+		}
+	}
+}

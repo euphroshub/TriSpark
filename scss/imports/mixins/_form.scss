@@ -1,0 +1,130 @@
+@use '../../_variables' as vars;
+@use '../mediaq';
+@use '_typo' as typo;
+
+@mixin input-placeholder($font-size, $line-height, $color) {
+	::-webkit-input-placeholder {
+		color: $color;
+		font-size: $font-size;
+		line-height: $line-height;
+	}
+
+	:-moz-placeholder {
+		color: $color;
+		font-size: $font-size;
+		line-height: $line-height;
+	}
+
+	::-moz-placeholder {
+		color: $color;
+		font-size: $font-size;
+		line-height: $line-height;
+	}
+
+	:-ms-input-placeholder {
+		color: $color;
+		font-size: $font-size;
+		line-height: $line-height;
+	}
+
+	::-ms-input-placeholder {
+		color: $color;
+		font-size: $font-size;
+		line-height: $line-height;
+	}
+
+	:placeholder-shown {
+		color: $color;
+		font-size: $font-size;
+		line-height: $line-height;
+	}
+}
+
+@mixin input-reset() {
+	--input-padding: 15px;
+
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
+	background: none;
+	border: none;
+	display: block;
+	padding: var(--input-padding);
+	color: var(--white);
+	outline: none;
+	width: 100%;
+}
+
+@mixin input-checkbox-reset() {
+	display: inline-block;
+	line-height: 1.2;
+
+	input{
+		display: none!important;
+	}
+
+	label{
+		position: relative;
+		padding-left: 35px;
+		margin-bottom: 0;
+		cursor: pointer;
+
+		&:before{
+			content: '';
+			left: 0;
+			position: absolute;
+			top: 0;
+			border-radius: 2px;
+			border: 1px solid var(--primary);
+			background: transparent;
+			width: 20px;
+			height: 20px; 
+		} 
+	}
+}
+
+@mixin label-up() {
+	&.m-label {
+		--label-padding: 15px;
+		position: relative;
+
+		label {
+			position: absolute;
+			top: var(--label-padding);
+			left: var(--label-padding);
+			margin: 0;
+			pointer-events: none;
+			transition: all 0.2s vars.$decel-curve;
+			display: flex;
+			align-items: center;
+			@include typo.fsize(16);
+		}
+
+		&.is-up label {
+			@include typo.fsize(12);
+			& {
+				color: var(--white);
+				top: calc((var(--label-padding) + 5px) * -1);
+			}
+		}
+	}
+}
+
+@mixin visually-hidden() {
+	position: absolute;
+	margin: -1px;
+	padding: 0;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+}
+
+// For hardcoded required in forms
+.required {
+	font-size: 25px;
+    color: var(--primary-lighter);
+    margin-left: 3px;
+	margin-bottom: -10px
+}

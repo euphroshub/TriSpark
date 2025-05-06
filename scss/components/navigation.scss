@@ -1,0 +1,978 @@
+@use '../_variables' as *;
+@use '../imports/mediaq' as *;
+@use '../imports/mixins/typo' as typo;
+
+@mixin nav-link-styles {
+    position: relative;
+    font-size: var(--mainNavFontSize);
+    font-family: var(--font-secondary);
+    font-weight: var(--font-bold);
+    text-transform: uppercase;
+    letter-spacing: 1.18px;
+    color: var(--white);
+}
+
+.m-bannerSpacer {
+    transition: all .45s $ease-in;
+}
+
+body {
+    ///////////////////////////////////////////////////////
+    //MEDIA QUERIES
+    
+    @include media('<LG') {
+        &.nav-active {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+        }
+    }
+}
+
+//________________________________________________________
+//-BEGIN Navigation
+//________________________________________________________
+.c-siteNav {
+    --innerPadding: 25px;
+    --nav-height: 0px;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    background: var(--black);
+    transition: all .45s $ease-in;
+    z-index: 1000;
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 91px; // ajuster en fonction de lahauteur de la nav.
+        background: var(--black);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        transition: all .45s $ease-in;
+        pointer-events: none;
+    }
+
+    &__container {
+        max-width: 1920px;
+        margin: 0 auto;
+        padding-left: var(--innerPadding);
+        width: 100%;
+    }
+
+    &__inner {
+        width: 100%;
+    }
+
+    &__hamburger {
+        position: relative;
+        line-height: 0;
+        padding: 15px var(--innerPadding);
+        display: flex;
+        align-items: center;
+        z-index: 10;
+        
+        &:before {
+            content: '';
+            position: absolute;
+            background: var(--black);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &__nav {
+        &__main {
+            &--list {
+                > ul {
+                    > li {
+                        > span {
+                            > a {
+                                @include nav-link-styles;
+
+                                &:before {
+                                    & {
+                                        opacity: 0;
+                                        content: '';
+                                        position: absolute;
+                                        left: 50%;
+                                        transform: translateX(-50%);
+                                        bottom: -80%;
+                                        width: 2px;
+                                        background: var(--white);
+                                        height: 10px;
+                                        transition: all $ease-in .3s;
+                                    }
+                                }
+
+                                &:hover, &:active, &:focus {
+                                    & {
+                                        color: var(--primary);
+                                    }
+
+                                    &:before {
+                                        & {
+                                            opacity: 1;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //  States
+    &.is-hidden {
+        transform: translate3d(0, -100%, 0);
+    }
+    
+    //________________________________________________________
+    //MEDIA QUERIES
+        
+    // Mobile style
+    @include media('<LG') {
+        & {
+            --mainPaddingTop: 36px;
+            --mainPaddingBot: 40px;
+            --mainLogoWidth: 135px;
+            --mobileLogoWidth: 120px;
+            --mobileLogoTopSpacing: 40px;
+            --mainElementPadding: 10px;
+            --secondaryElementPadding: 5px;
+            --scrollPaddingBottom: 40px;
+        }
+
+        &__row {
+            display: flex;
+            justify-content: space-between;   
+            width: 100%;
+        }
+
+        &__logo {
+            position: relative;
+            width: var(--mainLogoWidth);
+            line-height: 0;
+            padding: 15px 0;
+            z-index: 10;
+            
+            a {
+                display: block;
+            }
+        }
+
+        &__nav {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 0;
+            background-color: transparent;
+            pointer-events: none;
+            transition: all $ease-in .35s;
+            overflow: hidden;
+
+            &__scroll {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                padding: 0 var(--innerPadding);
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+                scrollbar-color: var(--primary) var(--black);
+
+                &::-webkit-scrollbar {
+                    width: 6px;
+                }
+
+                &::-webkit-scrollbar-track {
+                    background: var(--black);
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background-color: var(--primary);
+                    border-radius: 3px;
+                }
+            }
+
+            &__container {
+                max-width: $scr-xs;
+                margin: 0 auto;
+                opacity: 0;
+                transition: all .2s $ease-in;
+            }
+            
+            &__main {
+                position: relative;
+                padding: var(--mainPaddingTop) 0 var(--mainPaddingBot) 0;
+
+                &--list {
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+
+                    > li {
+                        position: relative;
+                        padding: 0;
+                        margin: 0;
+
+                        // Background color when its open
+                        &:before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            bottom: 0;
+                            left: 50%;
+                            right: 50%;
+                            //width: 150vw;
+                            width: 100%;
+                            transform: translate3d(-50%, 0, 0);
+                            background: var(--black);
+                            opacity: 0;
+                            transition: all $ease-in .3s;
+                        }
+                        
+                        > span {
+                            position: relative;
+                            padding: var(--mainElementPadding) 0;
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+
+                            > a {
+                                @include typo.fsize(18);
+                                letter-spacing: 1.18px;
+                                text-transform: uppercase;  
+                                color: var(--primary);
+                                font-weight: var(--font-bold);
+                                font-family: var(--font-secondary);
+                            }
+                        }
+
+                        // Has children - dropdown menu
+                        &.has-children {
+                            > span {
+                                display: flex;
+
+                                button {
+                                    padding-left: 10px;
+                                    flex-grow: 1;
+        
+                                    svg {
+                                        display: block;
+                                        width: 30px;
+                                        transform: rotate(0);
+                                        transition: all .45s $ease-in;
+                                    }
+                                }
+
+                                .-navSubArrow {
+                                    display: none;
+                                }
+                            }
+                            
+                            // Drop down
+                            > ul {
+                                position: relative;
+                                z-index: 0;
+                                list-style: none;
+                                height: 0;
+                                pointer-events: none;
+                                opacity: 0;
+                                transition: all .3s $ease-in;
+                                padding: 0;
+                                margin-top: 0;
+
+                                > li {
+                                    margin: 0;
+                                    padding: 0 0 20px 0;
+                                    opacity: 0;
+                                    transition: all .2s $ease-in;
+
+                                    &:last-child {
+                                        padding: 0 0 45px 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            &__secondary {
+                &--list {
+                    > ul {
+                        > li {
+                            > span {
+                                padding: var(--secondaryElementPadding) 0;
+                                
+                                > a {
+                                    @include typo.fsize(16);
+                                    color: var(--white);
+                                    font-weight: var(--font-semi-bold);
+                                    font-family: var(--font-secondary);
+                                    letter-spacing: 1.22px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &--mobileLogo {
+                    display: block;
+                    margin-top: var(--mobileLogoTopSpacing);
+
+                    img {
+                        width: var(--mobileLogoWidth);
+                        height: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    // States
+    &.is-nav-active {
+        &:before {
+            height: 100vh;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+        }
+    }
+
+    &.is-nav-active & {
+        &__nav {
+            height: var(--nav-height);
+            pointer-events: all;
+
+            &__scroll {
+                //padding-bottom: 180px; // a remettre si jamais il y a des dropdown menu. pour la nav mobile.
+                padding-bottom: var(--scrollPaddingBottom);
+            }
+
+            &__container {
+                transition: all .6s $ease-in;
+                opacity: 1;
+            }
+        }
+    }
+
+    // faire media query pour SM, ipad etc ajuster les fonts et les padding et grosseur du logo. IPAD mini res start a 768px. donc on ne peut pas start ca a MD.
+    @include media('>SM') {
+        & {
+            --mainPaddingTop: 46px;
+            --mainPaddingBot: 50px;
+            --mainLogoWidth: 165px;
+            --mobileLogoWidth: 150px;
+            --mobileLogoTopSpacing: 75px;
+            --mainElementPadding: 15px;
+            --secondaryElementPadding: 10px;
+            --scrollPaddingBottom: 60px;
+        }
+
+        &__nav {
+            &__main {
+                &--list {
+                    > ul {
+                        > li {
+                            > span {
+                                > a {
+                                    @include typo.fsize(22);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            &__secondary {
+                &--list {
+                    > ul {
+                        > li {
+                            > span {
+                                > a {
+                                    @include typo.fsize(20);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @include media('>MD') {
+        & {
+            --mainPaddingTop: 76px;
+            --mainPaddingBot: 80px;
+            --mainLogoWidth: 165px;
+            --mobileLogoWidth: 200px;
+            --mobileLogoTopSpacing: 100px;
+            --mainElementPadding: 25px;
+            --secondaryElementPadding: 15px;
+            --scrollPaddingBottom: 100px;
+        }
+
+        &__nav {
+            &__container {
+                max-width: $scr-sm;
+            }
+
+            &__main {
+                &--list {
+                    > ul {
+                        > li {
+                            > span {
+                                > a {
+                                    @include typo.fsize(22);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            &__secondary {
+                &--list {
+                    > ul {
+                        > li {
+                            > span {
+                                > a {
+                                    @include typo.fsize(20);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // END Navigation Mobile
+    //__________________________________________________________
+
+
+    // BEGIN Navigation Desktop
+    //__________________________________________________________
+    // Desktop style
+    @include media('>LG') {
+        & {
+            --innerPadding: 25px;
+            --navLogoWidth: 150px;
+            --verticalPadding: 15px;
+            --dropDownWidth: 400px;
+            --mainNavFontSize: 14px;
+            --dropDownFontSize: 13px;
+            --secondaryNavFontSize: 13px;
+            --secondaryNavSpacing: 15px;
+        }
+
+        & {
+            padding: 0;
+        }
+
+        &:before {
+            display: none;
+        }
+
+        &__container {
+            padding: 0;
+        }
+
+        &__row {
+            display: flex;
+        }
+
+        &__logo {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: var(--verticalPadding) var(--innerPadding);
+
+            a {
+                width: var(--navLogoWidth);
+                display: block;
+                line-height: 0;
+                transition: all $ease-in .3s;
+            }
+        }
+
+        &__hamburger {
+            display: none;
+        }
+
+        &__nav {
+            flex: 1;
+
+            &__scroll {
+                height: 100%;
+            }
+            
+            &__container {
+                display: flex;        
+                max-width: 100%;
+                height: 100%;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            // Main navigation
+            &__main {
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+                transition: all $ease-in .3s;
+                flex: 1;    
+                height: 100%;
+                padding-right: var(--innerPadding);
+                
+                &--list {
+                    width: 100%;
+
+                    > ul {
+                        display: flex;
+                        justify-content: space-between;
+                        margin: 0;
+                        height: 100%;
+
+                        > li {
+                            display: flex;
+                            padding: 0;
+                            margin: 0;
+                            position: relative;
+
+                            > span {
+                                position: relative;
+                                display: flex;
+                                align-items: center;
+
+                                // p-e faire une animation pour le hover avec un before. s'inspirer du before de has-children ? a voir.
+                                > a {
+                                    @include nav-link-styles;
+
+                                    &:before {
+                                        opacity: 0;
+                                        content: '';
+                                        position: absolute;
+                                        left: 50%;
+                                        transform: translateX(-50%);
+                                        bottom: -80%;
+                                        width: 2px;
+                                        background: var(--white);
+                                        height: 10px;
+                                        transition: all $ease-in .3s;
+                                    }
+
+                                    
+                                    &:hover, &:active, &:focus {
+                                        color: var(--primary);
+
+                                        &:before {
+                                            opacity: 1;
+                                        }
+                                    }
+                                }
+                            }
+
+                            // Has-children // Drop down -- NE SERT PAS POUR L'INSTANT.
+                            &.has-children {
+                                > span {
+                                    // Drop down 'icon'
+                                    &:before {
+                                        content: '';
+                                        position: absolute;
+                                        left: 50%;
+                                        transform: translateX(-50%);
+                                        bottom: 20px;
+                                        width: 2px;
+                                        background: var(--secondary);
+                                        height: 11px;
+                                        transition: all $ease-in .3s;
+                                    }
+
+                                    // Mobile button
+                                    button {
+                                        display: none;
+                                    }
+                                }
+                                
+                                > ul {
+                                    position: absolute;
+                                    top: 100%;
+                                    left: 50%;
+                                    list-style: none;
+                                    padding: 0;
+                                    width: var(--dropDownWidth);
+                                    transform: translateX(-50%);
+                                    pointer-events: none;
+                                    overflow: hidden;
+                                    opacity: 0;
+                                    background: transparent;
+                                    transition: all .3s $ease-in;
+                                    padding: 36px 15px 43px 15px;
+
+                                    > li {
+                                        margin: 0;
+                                        position: relative;
+                                        text-align: center;
+                                        padding: 8px 0;
+
+                                        &:first-child {
+                                            padding-top: 0;
+                                        }
+
+                                        &:last-child {
+                                            padding-bottom: 0;
+                                        }
+
+                                        > span {
+                                            > a {
+                                                display: block;
+                                                font-size: var(--dropDownFontSize);
+                                                font-weight: var(--font-regular);
+                                                color: var(--white);
+                                                text-transform: uppercase;
+                                                font-family: var(--font-primary);
+
+                                                &:hover, &:active, &:focus {
+                                                    color: var(--white);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                // Drop down shows
+                                &:hover {
+                                    > span {
+                                        // Drop down icon appearance switch on hover
+                                        &:before {
+                                            bottom: 9px;
+                                            height: 22px;
+                                        }
+                                    }
+                                    
+                                    > ul {
+                                        pointer-events: all;
+                                        opacity: 1;
+                                        background: var(--black);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Secondary navigation
+            &__secondary {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                transition: all $ease-in .3s;   
+                height: 100%;
+                padding: 0 var(--innerPadding);
+
+                // bg color du menu secondaire
+                &:before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    background: var(--yellow-gradient);
+                }
+
+                &--list {
+                    > ul {
+                        display: flex;
+                        margin: 0;
+                        padding: 0;
+                        list-style: none;
+
+                        > li {
+                            display: flex;
+                            padding: 0;
+                            margin: 0 var(--secondaryNavSpacing);
+
+                            &:first-child {
+                                margin-left: 0;
+                            }
+
+                            > span {
+                                position: relative;
+
+                                > a {
+                                    position: relative;
+                                    font-family: var(--font-secondary);
+                                    font-size: var(--secondaryNavFontSize);
+                                    font-weight: var(--font-semi-bold);
+                                    color: var(--black);
+                                    letter-spacing: 1.12px;
+                                    transition: all $ease-in .3s;
+
+                                    &:before {
+                                        opacity: 0;
+                                        content: '';
+                                        position: absolute;
+                                        left: 50%;
+                                        transform: translateX(-50%);
+                                        bottom: -80%;
+                                        width: 2px;
+                                        background: var(--black);
+                                        height: 10px;
+                                        transition: all $ease-in .3s;
+                                    }
+                                    
+                                    &:hover, &:active, &:focus {
+                                        color: var(--white);
+
+                                        &:before {
+                                            opacity: 1;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &--mobileLogo {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    @include media('>XLG') {
+        & {
+            --innerPadding: 35px; 
+            --navLogoWidth: 160px;
+            --verticalPadding: 20px;
+            --dropDownWidth: 450px;
+            --dropDownFontSize: 14px;
+            --mainNavFontSize: 15px;
+            --secondaryNavFontSize: 14px;
+            --secondaryNavSpacing: 15px;
+        }
+
+        &__nav {    
+            &__main {
+                padding: 0 var(--innerPadding);
+            }
+        }
+    }
+
+    @include media('>XXLG') {
+        & {
+            --innerPadding: 40px;
+            --verticalPadding: 24px;
+            --dropDownWidth: 500px;
+            --mainNavFontSize: 18px;
+            --dropDownFontSize: 16px;
+            --secondaryNavFontSize: 16px;
+            --secondaryNavSpacing: 20px;
+        }
+    }
+
+    @include media('>1850px') {
+        & {
+            --innerPadding: 50px;
+            --dropDownWidth: 550px;
+            --secondaryNavSpacing: 25px;
+        }
+    }
+}
+//________________________________________________________
+//-END Navigation
+//________________________________________________________
+
+
+//________________________________________________________
+//-BEGIN Burger
+//________________________________________________________
+.m-Hamburger {
+    position: relative;
+    width: 46px;
+    height: 25px;
+    z-index: 10;
+
+    &__lines {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 46px;
+        height: 5px;
+        transform: translate(-50%, -50%);
+        transition: all .25s $ease-in;
+
+        span {
+            position: absolute;
+            left: 0;
+            height: 3px;
+            background: var(--yellow-gradient);
+            transition: all .2s $ease-in;
+
+            &:nth-child(1) {
+                top: -10px;
+                width: 100%;
+            }
+    
+            &:nth-child(2) {
+                top: 50%;
+                transform: translateY(-50%);
+                width: 50%;
+            }
+    
+            &:nth-child(3) {                
+                width: 75%;
+                top: auto;
+                bottom: -10px;
+            }
+        }
+    }
+
+    // states
+    &.is-nav-active & {
+        &__lines {
+            // Option 1: Current animation
+            /*
+            span {
+                &:nth-child(1) {
+                    top: 0;
+                    transition: top .1s $ease-in, opacity .1s $ease-in .12s;
+                    opacity: 0;
+                }
+
+                &:nth-child(2) {
+                    transform: rotate(225deg);
+                    width: 100%;
+                }
+
+                &:nth-child(3) {
+                    bottom: 0;
+                    transition: bottom .1s $ease-in, width .1s $ease-in, transform .22s $ease-in .15s;
+                    transform: rotate(-45deg);
+                    width: 100%
+                }
+            }
+            */
+
+            // Option 2: Smooth X with scale
+            /*
+            span {
+                &:nth-child(1) {
+                    top: 0;
+                    transform: rotate(45deg) scaleX(1.2);
+                    transition: all .3s $ease-in;
+                    opacity: 0;
+                }
+
+                &:nth-child(2) {
+                    transform: rotate(225deg) scaleX(1.2);
+                    width: 100%;
+                    transition: all .3s $ease-in;
+                }
+
+                &:nth-child(3) {
+                    bottom: 0;
+                    transform: rotate(-45deg) scaleX(1.2);
+                    width: 100%;
+                    transition: all .3s $ease-in;
+                }
+            }
+            */
+
+            // Option 3: Bounce X
+            span {
+                &:nth-child(1) {
+                    top: 0;
+                    transform: rotate(45deg);
+                    transition: all .4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                    opacity: 0;
+                }
+
+                &:nth-child(2) {
+                    transform: rotate(225deg);
+                    width: 100%;
+                    transition: all .4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                }
+
+                &:nth-child(3) {
+                    bottom: 0;
+                    transform: rotate(-45deg);
+                    width: 100%;
+                    transition: all .4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                }
+            }
+
+            // Option 4: Staggered X
+            /*
+            span {
+                &:nth-child(1) {
+                    top: 0;
+                    transform: rotate(45deg);
+                    transition: all .3s $ease-in .1s;
+                    opacity: 0;
+                }
+
+                &:nth-child(2) {
+                    transform: rotate(225deg);
+                    width: 100%;
+                    transition: all .3s $ease-in .2s;
+                }
+
+                &:nth-child(3) {
+                    bottom: 0;
+                    transform: rotate(-45deg);
+                    width: 100%;
+                    transition: all .3s $ease-in .3s;
+                }
+            }
+            */
+
+            // Option 5: Elastic X
+            /*
+            span {
+                &:nth-child(1) {
+                    top: 0;
+                    transform: rotate(45deg);
+                    transition: all .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                    opacity: 0;
+                }
+
+                &:nth-child(2) {
+                    transform: rotate(225deg);
+                    width: 100%;
+                    transition: all .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                }
+
+                &:nth-child(3) {
+                    bottom: 0;
+                    transform: rotate(-45deg);
+                    width: 100%;
+                    transition: all .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                }
+            }
+            */
+        }
+    }
+}
+//________________________________________________________
+//-END Burger
+//________________________________________________________

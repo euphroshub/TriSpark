@@ -1,0 +1,21 @@
+{
+  "name": "frontend_classic",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.71.1",
+    "vite": "^5.1.4"
+  },
+  "dependencies": {
+    "core-js": "^3.41.0"
+  }
+}

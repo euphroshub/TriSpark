@@ -1,0 +1,99 @@
+@use '../_variables' as *;
+@use '../_config' as config;
+@use 'mediaq';
+@use 'mixins/_grid' as grid;
+
+:root {
+	--grid-columns: #{$grid-columns};
+	--grid-gutter-width: #{$grid-gutter-width};
+	--breakpoint: 100%;
+	--breakpoint-max: #{$src-max};
+	--half-container: calc(((100vw - var(--container)) / 2) + ( var(--grid-gutter-width)));
+}
+
+@each $breakpoint, $value in config.$breakpoints {
+	@if $value > config.$bp-class-generation {
+		@include mediaq.media('>#{$value}') {
+			:root {
+				--breakpoint: #{$value};
+				--container: calc(var(--breakpoint) - (var(--grid-gutter-width) / 2));
+			}
+		}
+	}
+}
+
+// **---------------------------------------------------**
+//  Container
+// -------------------------------------------------------
+.container {
+	@include grid.make-container();
+	max-width: var(--container);
+}
+
+// **---------------------------------------------------**
+//  Row
+// -------------------------------------------------------
+.row {
+	@include grid.make-row();
+}
+
+.no-gutters {
+	margin-left: 0;
+	margin-right: 0;
+
+	> .col,
+	> [class*="col-"] {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+
+// **---------------------------------------------------**
+//  Columns
+// -------------------------------------------------------
+@for $i from 1 through $grid-columns {
+	.col-#{$i} {
+		@include grid.make-col-ready();
+		@include grid.make-col($i, $columns: $grid-columns);
+	}
+}
+
+@each $breakpoint, $value in config.$breakpoints {
+	.col-#{$breakpoint} {
+		@include grid.make-col-ready();
+	}
+
+	@for $i from 1 through $grid-columns {
+		.col-#{$breakpoint}-#{$i} {
+			@include grid.make-col-ready();
+		}
+	}
+
+	@include mediaq.media('>#{$value}') {
+		.col-#{$breakpoint} {
+			@include grid.make-col-ready();
+			flex-basis: 0;
+			flex-grow: 1;
+			max-width: 100%;
+		}
+
+		@for $i from 1 through $grid-columns {
+			.col-#{$breakpoint}-#{$i} {
+				@include grid.make-col($i, $columns: $grid-columns);
+			}
+		}
+	}
+}
+
+.c-container {
+    --container: 1200px;
+    --grid-gutter-width: 20px;
+    --half-container: calc(((100vw - var(--container)) / 2) + (var(--grid-gutter-width)));
+    
+    width: 100%;
+    padding-right: var(--grid-gutter-width);
+    padding-left: var(--grid-gutter-width);
+    margin-right: auto;
+    margin-left: auto;
+    max-width: var(--container);
+}
