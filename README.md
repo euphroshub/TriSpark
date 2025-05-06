@@ -1,90 +1,57 @@
-# Vélo de montagne Mauricie - Website
+# TriSpark
 
-Official website for Vélo de montagne Mauricie (VMM), a non-profit organization promoting mountain biking in the Mauricie region of Québec.
+A modern web development stack built with Vite and SASS, featuring a clean architecture and optimized build process.
 
-## Overview
+## 🚀 Features
 
-This website serves as the primary online presence for VMM, providing information about:
-- Mountain biking trails in the Mauricie region
-- Season passes and merchandise
-- Team and organization information
-- Trail conditions and status
-- Contact information
+- **Modern Build System**: Powered by Vite for lightning-fast development and optimized production builds
+- **Advanced SASS Architecture**: Modular SASS structure with modern features
+- **Responsive Design**: Mobile-first approach with comprehensive breakpoints
+- **Performance Optimized**: Optimized assets and build process
+- **Modern Development Experience**: Hot Module Replacement (HMR) and fast refresh
 
-## Features
+## 📦 Tech Stack
 
-- Responsive design for all devices
-- SEO optimized content
-- Trail status updates
-- Season pass purchase system
-- Social media integration
-- Multilingual support (French/English)
+- **Build Tool**: Vite v5.4.18
+- **CSS Preprocessor**: SASS v1.71.1
+- **Core Dependencies**:
+  - core-js v3.41.0
+  - Modern SASS modules system (@use/@forward)
 
-## Tech Stack
-
-- HTML5
-- SCSS
-- JavaScript (ES6+)
-- Vercel (Hosting)
-- Endorphine (Payment processing)
-
-## 🚀 Template Features
-
-- **SCSS Architecture**: Organized SCSS structure with base, components, and utilities
-- **Responsive Design**: Mobile-first approach with responsive breakpoints
-- **Component-Based**: Modular components for easy maintenance and reusability
-- **Flexible Layout**: Sticky footer and responsive header
-- **Customizable**: Easily customizable through variables and mixins
-- **Modern Build Tool**: Powered by Vite for fast development and optimized production builds
-
-## 📁 Project Structure
+## 🛠️ Project Structure
 
 ```
-velo-montagne-mauricie/
+TriSpark/
 ├── assets/              # Static assets
-│   ├── icons/          # Favicon and other icons
-│   ├── images/         # General images
-│   └── logos/          # Logo files
-├── downloads/          # Downloadable files
-├── fonts/              # Font files
-├── js/                 # JavaScript files
-├── scss/               # Stylesheets
+│   ├── fonts/          # Font files
+│   ├── images/         # Image assets
+│   ├── icons/          # Icon assets
+│   └── logos/          # Logo assets
+├── js/                 # JavaScript source files
+│   └── main.js        # Main JavaScript entry point
+├── scss/              # SASS source files
 │   ├── base/          # Base styles
-│   ├── components/    # Reusable components
-│   ├── imports/       # SCSS imports
-│   ├── _config.scss   # Configuration variables
-│   ├── _helpers.scss  # Helper functions and mixins
-│   ├── _imports.scss  # SCSS imports configuration
-│   ├── _variables.scss # Global variables
-│   └── style.scss     # Main SCSS file
-├── 404.html           # Error page
-├── a-propos.html      # About page
-├── achats.html        # Purchases page
-├── equipe.html        # Team page
-├── index.html         # Main HTML file
-├── nous-joindre.html  # Contact page
-├── robots.txt         # Robots configuration
-├── sentiers.html      # Trails page
-├── sitemap.xml        # Sitemap
-├── TODO.md            # Project tasks
-├── _config.yml        # Jekyll configuration
-├── package.json       # NPM dependencies
-├── vite.config.js     # Vite configuration
-└── README.md          # Project documentation
+│   ├── components/    # Component styles
+│   ├── imports/       # Shared imports and mixins
+│   └── style.scss     # Main SASS entry point
+├── public/            # Public static files
+├── index.html         # Main HTML entry point
+└── vite.config.js     # Vite configuration
 ```
 
-## Development
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js
-- npm or yarn
+- Node.js (Latest LTS version recommended)
+- npm (comes with Node.js)
 
 ### Installation
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/velo-montagne-mauricie.git
+git clone [repository-url]
+cd TriSpark
 ```
 
 2. Install dependencies:
@@ -92,41 +59,96 @@ git clone https://github.com/yourusername/velo-montagne-mauricie.git
 npm install
 ```
 
-3. Start development server:
+3. Start the development server:
 ```bash
 npm run dev
 ```
 
-## 🚀 Development Workflow
+The development server will start at `http://localhost:3000`
 
-### Development Server
-- Run `npm run dev` to start the development server
-- Features hot module replacement (HMR) for instant updates
-- Access the site at `http://localhost:3000`
+### Available Scripts
 
-### Building for Production
-- Run `npm run build` to create an optimized production build
-- Outputs to the `dist` directory
-- Assets are automatically hashed for cache busting
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build locally
 
-## Deployment
+## 🎨 SASS Architecture
 
-The website is automatically deployed to Vercel when changes are pushed to the main branch.
+The project uses a modern SASS architecture with the following features:
 
-## Contributing
+- **Module System**: Uses `@use` and `@forward` for better encapsulation
+- **Variables**: Centralized in `_variables.scss`
+- **Mixins**: Organized in `imports/mixins/`
+- **Components**: Modular component styles in `components/`
+- **Base Styles**: Foundational styles in `base/`
+
+### SASS Features
+
+- CSS Custom Properties (variables)
+- Modern SASS modules
+- Responsive mixins
+- Typography system
+- Form styling
+- Navigation components
+
+## 🔧 Configuration
+
+### Vite Configuration
+
+The project uses a custom Vite configuration (`vite.config.js`) with:
+
+- Custom asset handling
+- SASS preprocessing
+- Path aliases
+- Development server settings
+- Build optimization
+
+### SASS Configuration
+
+- Modern SASS module system
+- Custom properties for theming
+- Responsive breakpoints
+- Typography scale
+- Component-based architecture
+
+## 📱 Responsive Design
+
+The project includes comprehensive responsive design features:
+
+- Mobile-first approach
+- Custom breakpoints
+- Responsive typography
+- Flexible layouts
+- Adaptive components
+
+## 🎯 Browser Support
+
+- Modern browsers (Chrome, Firefox, Safari, Edge)
+- IE11 support through core-js polyfills
+
+## 📝 Notes
+
+- The project uses modern SASS features which may show deprecation warnings in development
+- These warnings don't affect functionality and will be addressed in future SASS updates
+
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## License
+## 📄 License
 
-This project is proprietary and all rights are reserved by Vélo de montagne Mauricie.
+This project is licensed under the ISC License.
 
-## Contact
+## 👥 Authors
 
-- Website: [sentiersvmm.ca](https://www.sentiersvmm.ca/)
-- Facebook: [Vélo de montagne Mauricie](https://www.facebook.com/Velomontagnemauricie/)
-- Instagram: [@sentiersvmm](https://www.instagram.com/sentiersvmm/) 
+- Your Name - Initial work
+
+## 🙏 Acknowledgments
+
+- Vite team for the amazing build tool
+- SASS team for the powerful preprocessor
+- All contributors who have helped shape this project 
