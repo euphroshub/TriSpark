@@ -1,21 +1,15 @@
-@use '../_variables' as *;
-@use '../_config' as config;
-@use '../imports/mixin';
-@use '../imports/mediaq' as *;
-@use 'validation';
-@use 'button';
-@use 'form';
-@use '../imports/mixins/typo' as typo;
+@import '../_variables', '../_config', '../imports/mixin.scss';
+@import 'validation', 'button', 'form';
 
 // **---------------------------------------------------**
 //  Root variables
 // -------------------------------------------------------
 :root {
 	// Colors
-	@each $name, $value in config.$theme-colors {
+	@each $name, $value in $theme-colors {
 		--#{$name}: #{$value};
 	}
-	@each $name, $value in config.$theme-monochromes {
+	@each $name, $value in $theme-monochromes {
 		--#{$name}: #{$value};
 	}
 
@@ -58,64 +52,39 @@
 	--font-heading-color: #{$font-heading-color};
 
     // Responsive heading
-	@include media('>SM') {
-		:root {
-			& {
-				--h1: 50px;
-			}
-		}
+	@include mediaq('>SM') {
+		--h1: 50px;
 	}
 		
-	@include media('>MD') {
-		:root {
-			& {
-				--h1: 55px;
-				--h2: 45px;
-				--h3: 35px;
-				--h4: 30px;
-				--h5: 28px;
-				--h6: 24px;
-			}
-		}
+	@include mediaq('>MD') {
+		--h1: 55px;
+		--h2: 45px;
+		--h3: 35px;
+		--h4: 30px;
+		--h5: 28px;
+		--h6: 24px;
 	}
 	
-	@include media('>LG') {
-		:root {
-			& {
-				--h1: 60px;
-				--h2: 50px;
-				--nav-inner-scroll-padding: 65px;
-			}
-		}
+	@include mediaq('>LG') {
+		--h1: 60px;
+		--h2: 50px;
+		--nav-inner-scroll-padding: 65px;
 	}
 
-	@include media('>XLG') {
-		:root {
-			& {
-				--h1: 70px;
-				--h2: 55px;
-				--h3: 40px;
-			}
-		}
+	@include mediaq('>XLG') {
+		--h1: 70px;
+		--h2: 55px;
+		--h3: 40px;
 	}
 
     // Validation
-    & {
-        --success: #{$success};
-        --warning: #{$warning};
-        --error: #{$error};
-        --info: #{$info};
+	--success: #{$success};
+	--warning: #{$warning};
+	--error: #{$error};
+	--info: #{$info};
 
-        // Needed global variables
-        --nav-inner-scroll-padding: 180px;
-
-        // Transitions
-        --stand-curve: #{$stand-curve};
-        --decel-curve: #{$decel-curve};
-        --accel-curve: #{$accel-curve};
-        --sharp-curve: #{$sharp-curve};
-        --ease-in: #{$ease-in};
-    }
+	// Needed global variables
+	--nav-inner-scroll-padding: 180px;
 }
 
 
@@ -212,18 +181,14 @@ body {
 	text-fill-color: transparent;
 }
 
-@mixin heading-styles {
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
 	font-family: var(--font-heading);
 	line-height: var(--heading-line-height);
 	font-weight: var(--font-heading-weight);
 	color: var(--font-heading-color);
 	text-transform: uppercase;
-	margin-bottom: 0.5em;
-}
-
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
-	@include heading-styles;
+    margin-bottom: 0.5em;
 }
 
 // Custom heading style
@@ -270,18 +235,16 @@ h6, .h6 {
 //  Body elements
 // -------------------------------------------------------
 p {
-	@include typo.fsize(16);
-	& {
-		margin-bottom: 1.3em;
-		letter-spacing: var(--font-letter-spacing);
+	@include fsize(16);
+	margin-bottom: 1.3em;
+	letter-spacing: var(--font-letter-spacing);
+
+	@include mediaq('>LG') {
+		@include fsize(18);
 	}
 
-	@include media('>LG') {
-		@include typo.fsize(18);
-	}
-
-	@include media('>XXLG') {
-		@include typo.fsize(20);
+	@include mediaq('>XXLG') {
+		@include fsize(20);
 	}
 }
 
@@ -309,12 +272,10 @@ ul, ol {
 	}
 
 	li { 
-		@include typo.fsize(16);
-		& {
-			color: var(--body-text-color);
-			margin-bottom: 0.4em;
-			padding-bottom: 0.4em;
-		}
+        @include fsize(16);
+		color: var(--body-text-color);
+		margin-bottom: 0.4em;
+		padding-bottom: 0.4em;
 	}
 }
 
@@ -341,12 +302,12 @@ table {
 	width: 100%;
 
 	th {
-		@include typo.fsize(11);
+		@include fsize(11);
 		text-transform: uppercase;
 	}
 
 	td {
-		@include typo.fsize(13);
+		@include fsize(13);
 	}
 
 	th, td {
@@ -388,35 +349,25 @@ hr {
 
 	h1, h2, h3, h4, h5, h6,
 	.h1, .h2, .h3, .h4, .h5, .h6 {
-		& {
-			margin-top: 1.5em;
-			margin-bottom: 0.5em;
-		}
+		margin-top: 1.5em;
+		margin-bottom: 0.5em;
 	}
 
 	span {
-		& {
-			display: inline-block;
-		}
+		display: inline-block;
 	}
 
 	a {
-		& {
-			text-decoration: underline;
-		}
+		text-decoration: underline;
 	}
 
     a {
-		& {
-			color: var(--orange-red);
-			font-weight: var(--font-regular);
-			text-decoration: underline;
-		}
+        color: var(--orange-red);
+        font-weight: var(--font-regular);
+        text-decoration: underline;
     
         &:hover, &:active, &:focus {
-			& {
-				color: var(--primary);
-			}
+            color: var(--primary);
         }
     }
 
@@ -426,29 +377,23 @@ hr {
 
 		&:not([class]) {
 			li {
-				& {
-					padding-left: 30px;
-					position: relative;
-				}
+				padding-left: 30px;
+				position: relative;
 
 				&:before {
-					& {
-						content:'';
-						background: var(--body-text-color);
-						position: absolute;
-						top: .9em;
-						left: 0;
-						height: 1px;
-						width: 16px;
-						transform: translateY(-50%);
-					}
+					content:'';
+					background: var(--body-text-color);
+					position: absolute;
+					top: .9em;
+					left: 0;
+					height: 1px;
+					width: 16px;
+					transform: translateY(-50%);
 				}
 
 				&:last-child {
-					& {
-						padding-bottom: 0;
-						margin-bottom: 0;
-					}
+					padding-bottom: 0;
+					margin-bottom: 0;
 				}
 			}
 		}
@@ -469,7 +414,7 @@ hr {
 				position: absolute;
 				top: .9em;
 				left: 0;
-				@include typo.fsize(15);
+				@include fsize(15);
 				color: var(--body-text-color);
 				transform: translateY(-50%);
 			}
@@ -494,33 +439,24 @@ hr {
 
 	// 	white
 	&--white {
-		& {
-			color: var(--white);
-		}
+		color: var(--white);
 
 		h1, h2, h3, h4, h5, h6,
 		.h1, .h2, .h3, .h4, .h5, .h6 {
-			& {
-				color: var(--white);
-			}
+			color: var(--white);
 		}
 
 		p, span, blockquote {
-			& {
-				color: var(--white);
-			}
+			color: var(--white);
 		}
 
 		ul {
+
 			&:not([class]) {
 				li {
-					& {
-						color: var(--white);
-					}
+					color: var(--white);
 					&:before {
-						& {
-							background: var(--white);
-						}
+						background: var(--white);
 					}
 				}
 			}
@@ -529,25 +465,19 @@ hr {
 		ol {
 			&:not([class]) {
 				li {
-					& {
-						color: var(--white);
-					}
+					color: var(--white);
 				}
 			}
 		}
 
 		a {
-			& {
-				display: inline-block;
-				color: var(--primary);
-				font-family: var(--font-secondary);
-			}
+			display: inline-block;
+			color: var(--primary);
+			font-family: var(--font-secondary);
 
-			&:hover, &:active, &:focus {
-				& {
-					color: var(--primary-lighter);
-					text-decoration: none;
-				}
+			&:hover, &:active, &:focus{
+				color: var(--primary-lighter);
+				text-decoration: none;
 			}
 		}
 	}
@@ -632,24 +562,18 @@ span, a {
         height: auto;
         opacity: 1;
         animation: pulse 2s ease-in-out infinite;
-        padding: 5px;
+		padding: 5px;
 
-        @include media('>SM') {
-            & {
-                width: 165px;
-            }
+        @include mediaq('>SM') {
+            width: 165px;
         }
 
-        @include media('>MD') {
-            & {
-                width: 200px;
-            }
+        @include mediaq('>MD') {
+            width: 200px;
         }
 
-        @include media('>LG') {
-            & {
-                width: 250px;
-            }
+        @include mediaq('>LG') {
+            width: 250px;
         }
     }
 }
@@ -666,28 +590,5 @@ span, a {
     100% {
         transform: scale(1);
         opacity: 1;
-    }
-}
-
-@mixin list-item-before {
-    content:'';
-    background: var(--body-text-color);
-    position: absolute;
-    top: .9em;
-    left: 0;
-    height: 1px;
-    width: 16px;
-    transform: translateY(-50%);
-}
-
-.Editable {
-    ul {
-        &:not([class]) {
-            li {
-                &:before {
-                    @include list-item-before;
-                }
-            }
-        }
     }
 }

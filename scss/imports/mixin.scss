@@ -1,4 +1,1 @@
-@use 'mixins/_grid.scss';
-@use 'mixins/_form.scss';
-@use 'mixins/_typo.scss';
-@use 'mixins/_button.scss';
+@import 'mixins/_grid.scss', 'mixins/_form.scss', 'mixins/_typo.scss', 'mixins/_button.scss';

@@ -27,6 +27,1141 @@
 }
 
 // **---------------------------------------------------**
-//  Global SCSS 
+//  Global
 // -------------------------------------------------------
 
+// **---------------------------------------------------**
+//  Component 50-50 images en premier en mobile et switch a gauche en desktop
+// -------------------------------------------------------
+
+.c-infoBlock {
+    --contentBtnSpacing: 20px;
+
+    overflow: hidden;
+
+    &__row {
+        &--leftCol {
+            &__content {
+                &--img {
+                    height: 100%;
+                    margin-left: calc(-1 * var(--grid-gutter-width));
+                    margin-right: calc(-1 * var(--grid-gutter-width));
+
+                    img {
+                        object-fit: cover;
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+        }
+
+        &--rightCol {
+            &__content {
+                padding: var(--spacing-responsive) 0;
+
+                &--text {
+                    p {
+                        color: var(--tertiary);
+                    }
+                }
+
+                &--btn {
+                    margin-top: var(--contentBtnSpacing);
+                }
+            }
+        }
+    }
+
+    @include mediaq('>XS') {
+        &__row {
+            &--leftCol {
+                &__content {
+                    &--img {
+                        margin-left: 0;
+                        margin-right: 0;
+                        margin: 0 calc(-1 * var(--half-container));
+                    }
+                }
+            }
+        }
+    }
+
+    @include mediaq('>MD') {
+        --contentBtnSpacing: 30px;
+        --contentLeftSpacing: 40px;
+        --contentVerticalSpacing: 50px;
+
+        &__row {
+            @include make-row();
+            flex-direction: row;
+            align-items: stretch;
+
+            &--leftCol {
+                @include make-col-ready();
+                @include make-col(6);
+                display: flex;
+                flex-direction: column;
+                padding-right: 0;
+                margin-right: calc(-1 * var(--grid-gutter-width));
+
+                &__content {
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+
+                    &--img {
+                        margin: 0;
+                        margin-left: calc(-1 * var(--half-container));
+                        height: 100%;
+                        flex: 1;
+
+                        img {
+                            object-fit: cover;
+                            height: 100%;
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+
+            &--rightCol {
+                @include make-col-ready();
+                @include make-col(6);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                &__content {
+                    padding: var(--contentVerticalSpacing) 0 var(--contentVerticalSpacing) var(--contentLeftSpacing);
+                }
+            }
+        }
+    }
+
+    @include mediaq('>LG') {
+        --contentBtnSpacing: 30px;
+        --contentTextWidth: 500px;
+
+        &__row {
+            &--rightCol {
+                &__content {
+                    &--text {
+                        padding: 0;
+                        max-width: var(--contentTextWidth);
+                    }
+                }
+            }
+        }
+    }
+
+    @include mediaq('>XLG') {
+        --contentTextWidth: 550px;
+        
+    }
+    @include mediaq('>XXLG') {
+        --contentTextWidth: 600px;
+        --contentVerticalSpacing: 0;
+    }
+}
+
+// Reverse info block for grid style layout
+.c-infoBlockRev {
+    --contentBtnSpacing: 20px;
+
+    overflow: hidden; 
+
+    &__row {
+        &--leftCol {
+            &__content {
+                &--img {
+                    height: 100%;
+                    margin-left: calc(-1 * var(--grid-gutter-width));
+                    margin-right: calc(-1 * var(--grid-gutter-width));
+
+                    img {
+                        object-fit: cover;
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+        }
+
+        &--rightCol {
+            &__content {
+                padding: var(--spacing-responsive) 0;
+
+                &--text {
+                    p {
+                        color: var(--tertiary);
+                    }
+                }
+
+                &--btn {
+                    margin-top: var(--contentBtnSpacing);
+                }
+            }
+        }
+    }
+
+    @include mediaq('>XS') {
+        &__row {
+            &--leftCol {
+                &__content {
+                    &--img {
+                        margin-left: 0;
+                        margin-right: 0;
+                        margin: 0 calc(-1 * var(--half-container));
+                    }
+                }
+            }
+        }
+    }
+
+    @include mediaq('>MD') {
+        --contentBtnSpacing: 30px;
+        --contentRightSpacing: 40px;
+        --contentVerticalSpacing: 50px;
+
+        &__row {
+            @include make-row();
+            flex-direction: row-reverse;
+            align-items: stretch;
+
+            &--leftCol {
+                @include make-col-ready();
+                @include make-col(6);
+                display: flex;
+                flex-direction: column;
+                padding-left: 0;
+                margin-left: calc(-1 * var(--grid-gutter-width));
+
+                &__content {
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+
+                    &--img {
+                        margin: 0;
+                        margin-right: calc(-1 * var(--half-container));
+                        height: 100%;
+                        flex: 1;
+                        width: calc(100% + var(--half-container));
+
+                        img {
+                            object-fit: cover;
+                            height: 100%;
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+
+            &--rightCol {
+                @include make-col-ready();
+                @include make-col(6);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+
+                &__content {
+                    padding: var(--contentVerticalSpacing) var(--contentRightSpacing) var(--contentVerticalSpacing) 0;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                }
+            }
+        }
+    }
+
+    @include mediaq('>LG') {
+        --contentBtnSpacing: 30px;
+        --contentTextWidth: 500px;
+
+        &__row {
+            &--rightCol {
+                &__content {
+                    &--text {
+                        padding: 0;
+                        max-width: var(--contentTextWidth);
+                    }
+                }
+            }
+        }
+    }
+
+    @include mediaq('>XLG') {
+        --contentTextWidth: 550px;
+    }
+    @include mediaq('>XXLG') {
+        --contentVerticalSpacing: 0;
+        --contentTextWidth: 600px;
+    }
+}
+
+// **---------------------------------------------------**
+//  Component Text centré titre + texte + bouton
+// -------------------------------------------------------
+
+.c-simpleText {
+    --contentBtnSpacing: 20px;
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        &--title {
+            text-align:center;
+        }
+
+        &--text {
+            text-align: center;
+            }
+
+        &--btn {
+           margin-top: var(--contentBtnSpacing);
+        }
+    }
+
+    @include mediaq('>SM') {
+        --textMaxWidth: 500px;
+
+        &__content {
+            &--text {
+                max-width: var(--textMaxWidth);
+            }
+        }
+    }   
+
+    @include mediaq('>MD') {
+        --textMaxWidth: 550px;
+    }
+
+    @include mediaq('>LG') {
+        --contentBtnSpacing: 25px;
+        --textMaxWidth: 650px;
+    }
+
+    @include mediaq('>XLG') {
+        --contentBtnSpacing: 30px;
+        --textMaxWidth: 750px;
+    }
+
+    @include mediaq('>XXLG') {
+        --textMaxWidth: 800px;
+    }
+}
+
+
+// **---------------------------------------------------**
+//  Component alternate with colored background
+// -------------------------------------------------------
+
+.c-alternate {
+    --contentBtnSpacing: 15px;
+    --imgBottomSpacing: 50px;
+
+    overflow: hidden;
+
+    &__inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        &--img {
+            margin-bottom: var(--imgBottomSpacing);
+            z-index: 1;
+            position: relative;
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: calc(-1 * var(--spacing-responsive));
+                bottom: calc(-1 * var(--imgBottomSpacing) / 2);
+                left: calc(-1 * var(--grid-gutter-width));
+                right: calc(-1 * var(--grid-gutter-width));
+                background-color: var(--primary);
+                z-index: -1;
+            }
+        }
+
+        &--content {
+            position: relative;
+            z-index: 1;
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: calc(-1 * var(--imgBottomSpacing) / 2);
+                bottom: calc(-1 * var(--spacing-responsive));
+                left: calc(-1 * var(--grid-gutter-width));
+                right: calc(-1 * var(--grid-gutter-width));
+                background-color: var(--black);
+                z-index: -1;
+            }
+
+            &__btn {
+                margin-top: var(--contentBtnSpacing);
+            }
+        }
+    }
+
+    @include mediaq('>XS') {
+        &__inner {
+            &--img {
+                &:before {
+                    left: calc(-1 * var(--half-container));
+                    right: calc(-1 * var(--half-container));
+                }
+            }
+
+            &--content {
+                &:before {
+                    left: calc(-1 * var(--half-container));
+                    right: calc(-1 * var(--half-container));
+                }
+            }
+        }
+    }
+
+    @include mediaq('>SM') {
+        --contentLeftSpacing: 20px;
+
+        &__inner {
+            @include make-row();
+            flex-direction: row;
+            align-items: stretch;
+
+            &--img {
+                @include make-col-ready();
+                @include make-col(6);
+                margin-bottom: 0;
+                padding-right: calc(var(--contentLeftSpacing) + var(--grid-gutter-width));
+                
+                &:before {
+                    bottom: calc(-1 * var(--spacing-responsive));
+                    right: 0;
+                }
+
+            }
+
+            &--content {
+                @include make-col-ready();
+                @include make-col(6);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                padding-left: calc(var(--contentLeftSpacing) + var(--grid-gutter-width));
+
+                &:before {
+                    top: calc(-1 * var(--spacing-responsive));
+                    bottom: calc(-1 * var(--spacing-responsive));
+                    left: 0;
+                }
+            }
+        }
+    }
+
+    @include mediaq('>LG') {
+        --contentBtnSpacing: 25px;
+        --contentLeftSpacing: 30px;
+        
+        &__inner {
+            &--content {
+                &__text, &__title {
+                    max-width: 600px;
+                }
+            }
+        }
+    }
+
+    @include mediaq('>XLG') {
+        --contentLeftSpacing: 40px;
+    }
+
+    @include mediaq('>XXLG') {
+        --contentLeftSpacing: 50px;
+    }
+}
+// **---------------------------------------------------**
+//  Component Img + text
+// -------------------------------------------------------
+
+.c-imgText {
+    --contentBtnSpacing: 20px;
+    --contentVerticalSpacing: 20px;
+    --imgBottomSpacing: 40px;
+    --contentMaxWidth: 100%;
+
+    &__inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        &--img {
+            margin-bottom: var(--imgBottomSpacing);
+            width: 100%;
+            height: 100%;
+            max-height: 900px;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }   
+        }
+
+        &--content {
+            display: flex;  
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: var(--contentMaxWidth);
+
+            &__title {
+                text-align: center;
+
+                h2 {
+                    color: var(--tertiary);
+                }
+            }
+
+            &__text {
+                text-align: center;
+            }
+
+            &__btn {
+                margin-top: var(--contentBtnSpacing);
+            }
+        }
+    }
+
+    @include mediaq('>SM') {
+        --imgBottomSpacing: 50px;
+        --contentMaxWidth: 700px;
+    }
+
+    @include mediaq('>MD') {
+        --imgBottomSpacing: 60px;
+        --contentMaxWidth: 800px;
+    }
+
+    @include mediaq('>LG') {
+        --contentMaxWidth: 900px;
+    }
+}
+
+// **---------------------------------------------------**
+//  Component img full width no text
+// -------------------------------------------------------
+
+.c-imgFullWidth {
+    &__inner {
+        width: 100%;
+        height: 100%;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+// **---------------------------------------------------**
+//  Table trail status
+// -------------------------------------------------------
+
+// Difficulty icons
+
+.blueSquare {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-color: blue;
+  }
+
+  .blackLosange {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-color: var(--black);
+    transform: rotate(45deg);
+    border: 1px solid var(--white);
+    box-sizing: border-box;
+  }
+
+  .greenCircle {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-color: green;
+    border-radius: 50%;
+  }
+
+
+// Table
+.c-trailTable {
+	--tableTopSpacing: 42px;
+	--tableMainTitleSpacing: 33px;
+	--tableCellMinWidth: 350px;
+	--tableHeadCellPadding: 20px 15px 20px 20px;
+	--tableCellPadding: 27px 15px 27px 20px;
+	--tableHeadIconSize: 35px;
+    --tableTrailNameFontSize: 14px;
+    --tableTrailStatusFontSize: 13px;
+
+	position: relative;
+/*
+	&:before {
+		position: absolute;
+		content: '';
+		top: 0;
+		bottom: 50%;
+		left: 50%;
+		right: 50%;
+		width: 150vw;
+		transform: translate3d(-50%, 0, 0);
+		background: var(--gray-100);
+		z-index: -1;
+	}
+*/
+	// Main wrapper
+	&__inner {
+		padding: var(--tableTopSpacing) var(--grid-gutter-width) 0 var(--grid-gutter-width);
+
+		&--title {
+            position: relative;
+            display: inline-block;
+			margin-bottom: var(--tableMainTitleSpacing);
+
+            // a faire site wide avec une classe sur les heading pour uniformiser
+            &:before {
+                content: '';
+                position: absolute;
+                bottom: 25px;
+                left: 0;
+                width: 60%;
+                height: 3px;
+                background-color: var(--primary);
+            }
+		}
+	}
+
+	&__scroll {
+		display: block;
+		width: 100%;
+		overflow-x: auto;
+		scrollbar-color: var(--primary) var(--black);
+		scrollbar-width: thin;
+	}
+
+	// Table
+	&__table {
+		color: var(--white);
+        font-family: var(--font-secondary);
+		font-weight: var(--font-regular);
+
+		// Global
+		tr {
+			border-top: 1px solid var(--primary);
+			
+			.firstElement {
+				padding-left: 0;
+			}
+
+			td {
+				vertical-align: center;
+			}
+		}
+		
+		// Head - Titles
+		> thead {
+			> tr {
+				> th {
+					position: relative;
+					min-width: var(--tableCellMinWidth);
+					padding: var(--tableHeadCellPadding);
+                    color: var(--primary);
+
+					&:before {
+						content: '';
+						position: absolute;
+						top: 0;
+						right: 0;
+						width: 1px;
+						height: 16px;
+						background: var(--primary);
+					}
+
+                    &:after {
+						content: '';
+						position: absolute;
+						bottom: 0;
+						right: 0;
+						width: 1px;
+						height: 16px;
+						background: var(--primary);
+					}
+
+                    
+					span {
+						@include fsize(18);
+						font-family: var(--font-secondary);
+						font-weight: var(--font-bold);
+						text-transform: uppercase;
+						letter-spacing: 1.37px;
+						display: flex;
+						align-items: center;
+					}
+				}
+			}
+		}
+
+		// Body
+		> tbody {
+            .lastElement {
+                > td {
+                    &:after {
+                        display: none;
+                    }
+                }
+            }
+
+			> tr {
+				> td {
+					position: relative;
+					min-width: var(--tableCellMinWidth);
+					padding: var(--tableCellPadding);
+
+					&:before {
+						content: '';
+						position: absolute;
+						top: 0;
+						right: 0;
+						width: 1px;
+						height: 16px;
+						background: var(--primary);
+					}
+
+                    &:after {
+						content: '';
+						position: absolute;
+						bottom: 0;
+						right: 0;
+						width: 1px;
+						height: 16px;
+						background: var(--primary);
+					}
+
+                    .statusDiv {
+                        display: flex;
+                        align-items: center;
+                    }
+
+					.trailName {
+						font-size: var(--tableTrailNameFontSize);
+						font-family: var(--font-secondary);
+						font-weight: var(--font-semi-bold);
+						letter-spacing: 1.22px;
+						margin-bottom: 11px;
+					}
+
+                    .trailDetails {
+                        font-size: var(--tableTrailStatusFontSize);
+                        font-family: var(--font-secondary);
+                        font-weight: var(--font-bold);
+                        letter-spacing: 1.22px;
+                    }
+
+                    .trailDifficulty {
+                        display: flex;
+                        justify-content: center;
+                    }
+
+                    .trailStatus {
+                        font-size: var(--tableTrailStatusFontSize);
+                        font-family: var(--font-secondary);
+                        font-weight: var(--font-bold);
+                        letter-spacing: 1.22px;
+                    }
+
+                    .trailOpen {
+                        color: greenyellow;
+                    }
+
+                    .trailClosed {
+                        color: red;
+                    }
+
+                    .trailWork {
+                        color: yellow;
+                    }
+
+					p {
+						color: var(--primary-lighter);
+					}
+				}
+			}
+		}
+	}
+
+	@include mediaq('>MD') {
+		--tableTopSpacing: 50px;
+		--tableLateralSpacing: 40px;
+		--tableMainTitleSpacing: 40px;
+		--tableHeadIconSize: 40px;
+
+		&__inner {
+			padding: var(--tableTopSpacing) var(--tableLateralSpacing) 0 var(--tableLateralSpacing);
+		}
+
+		// 1 px right sur les before car pour une raison X il n'aparaisse pas en MD seulement. reswitch a 0 en LG..
+		&__table {
+			> thead {
+				> tr {
+					> th {	
+						&:before {
+							right: 1px;
+							height: 18px;
+						}
+					}
+				}
+			}
+
+			> tbody {
+				> tr {
+					> td {	
+						&:before {
+							right: 1px;
+							height: 18px;
+						}
+	
+						.-upper {
+							@include fsize(18);
+							margin-bottom: 8px;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	@include mediaq('>LG') {
+		--tableTopSpacing: 70px;
+		--tableMainTitleSpacing: 45px;
+		--tableHeadCellPadding: 20px 15px 20px 30px;
+		--tableCellPadding: 35px 15px 35px 30px;
+        --tableTrailNameFontSize: 15px;
+        --tableTrailStatusFontSize: 14px;
+
+		&__table {
+			> thead {
+				> tr {
+					> th {	
+						&:before {
+							right: 0;
+						}
+					}
+				}
+			}
+
+			> tbody {
+				> tr {
+					> td {	
+						&:before {
+							right: 0;
+						}
+					}
+				}
+			}
+		}
+	}
+
+
+	@include mediaq('>XLG') {
+		--tableTopSpacing: 85px;
+		--tableLateralSpacing: 75px;
+		--tableMainTitleSpacing: 50px;
+		--tableHeadCellPadding: 22px 20px 22px 45px;
+		--tableCellPadding: 45px 20px 45px 45px;
+		--tableHeadIconSize: 45px;
+
+		&__table {
+			margin-bottom: 40px;
+
+			> thead {
+				> tr {
+					> th {	
+						&:before {
+							height: 20px;
+						}
+					}
+				}
+			}
+
+			> tbody {
+				> tr {
+					> td {	
+						&:before {
+							height: 20px;
+						}
+
+						.-upper {
+							@include fsize(22);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	@include mediaq('>XXLG') {
+		--tableTopSpacing: 102px;
+		--tableLateralSpacing: 100px;
+		--tableMainTitleSpacing: 53px;
+		--tableHeadCellPadding: 22px 20px 22px 60px;
+		--tableCellPadding: 53px 20px 53px 60px;
+		--tableHeadIconSize: 52px;
+        --tableTrailNameFontSize: 16px;
+        --tableTrailStatusFontSize: 14px;
+
+		&__table {
+			margin-bottom: 50px;
+
+			> thead {
+				> tr {
+					> th {	
+						&:before {
+							height: 22px;
+						}
+					}
+				}
+			}
+
+			> tbody {
+				> tr {
+					> td {
+						&:before {
+							height: 22px;
+						}	
+
+						.-upper {
+							@include fsize(25);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+// **---------------------------------------------------**
+//  Team cards component
+// -------------------------------------------------------
+
+.c-team {
+    --titleSpacing: 50px;
+
+    &__title {
+        margin-bottom: var(--titleSpacing);
+    }
+
+    &__row {
+        @include make-row();
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0;
+    }
+      
+    &__card {
+        --cardSpacing: 25px;
+        --cardGutter: 15px;
+
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+        z-index: 3;
+        padding: var(--cardGutter);
+        margin-bottom: var(--cardSpacing);
+        width: 100%;
+
+        // Mobile first - full width
+        flex: 0 0 100%;
+        max-width: 100%;
+
+        // SM breakpoint - 2 columns
+        @include mediaq('>SM') {
+            --cardSpacing: 30px;
+            --cardGutter: 20px;
+            flex: 0 0 calc(50% - var(--cardGutter));
+            max-width: calc(50% - var(--cardGutter));
+            margin-right: var(--cardGutter);
+
+            &:nth-child(2n) {
+                margin-right: 0;
+            }
+        }
+
+        // MD breakpoint - 3 columns
+        @include mediaq('>MD') {
+            --cardSpacing: 40px;
+            --cardGutter: 25px;
+            flex: 0 0 calc(33.333% - var(--cardGutter));
+            max-width: calc(33.333% - var(--cardGutter));
+            margin-right: var(--cardGutter);
+
+            &:nth-child(2n) {
+                margin-right: var(--cardGutter);
+            }
+
+            &:nth-child(3n) {
+                margin-right: 0;
+            }
+        }
+
+        // LG breakpoint - 4 columns
+        @include mediaq('>XLG') {
+            --cardSpacing: 50px;
+            --cardGutter: 30px;
+            flex: 0 0 calc(25% - var(--cardGutter));
+            max-width: calc(25% - var(--cardGutter));
+            margin-right: var(--cardGutter);
+
+            &:nth-child(3n) {
+                margin-right: var(--cardGutter);
+            }
+
+            &:nth-child(4n) {
+                margin-right: 0;
+            }
+        }
+
+        &:before {
+            content: '';
+            position: absolute;
+            width: calc(100% + var(--cardGutter));
+            height: 140%;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                transparent calc(20% - 1px),
+                var(--primary) calc(20% - 1px),
+                var(--primary) calc(80% + 1px),
+                transparent calc(80% + 1px),
+                transparent 100%
+            );
+            z-index: 1;
+            animation: borderRotate 15s linear infinite;
+            top: -20%;
+            left: calc(-1 * var(--cardGutter) / 2);
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            background-color: var(--black);
+            inset: 1px;
+            border-radius: 2px;
+            z-index: 1;
+        }
+
+        &--content {
+            z-index: 2;
+        }
+
+        &--img {
+            margin-bottom: 25px;
+            z-index: 2;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    @include mediaq('>SM') {
+        --titleSpacing: 60px;
+    }
+
+    @include mediaq('>MD') {
+        --titleSpacing: 70px;
+    }
+    
+    @include mediaq('>LG') {
+        --titleSpacing: 80px;
+    }
+
+    @include mediaq('>XLG') {
+        --titleSpacing: 90px;
+    }
+
+    @include mediaq('>XXLG') {
+        --titleSpacing: 100px;
+    }
+}
+
+
+// **---------------------------------------------------**
+//  Accordions component (main style in accordions.scss)
+// -------------------------------------------------------
+
+.c-faq {
+	--topSpacing: 30px;
+    --topLogoSize: 90px;
+
+	&__top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--topSpacing);
+
+        &__logo {
+            width: var(--topLogoSize);
+
+            img {
+                width: var(--topLogoSize);
+                height: auto;
+            }
+        }
+	}
+
+	//________________________________________________________
+	//MEDIA QUERIES
+	
+	@include mediaq('>SM') {
+		--topSpacing: 40px;
+        --topLogoSize: 175px;
+	}
+
+	@include mediaq('>MD') {
+		--topSpacing: 50px;
+        --topLogoSize: 200px;
+	}
+
+	@include mediaq('>LG') {
+		--topSpacing: 60px;
+        --topLogoSize: 225px;
+	}
+
+	@include mediaq('>XLG') {
+		--topSpacing: 70px;
+        --topLogoSize: 250px;
+	}
+
+	@include mediaq('>XXLG') {
+		--topSpacing: 80px;
+        --topLogoSize: 325px;
+	}
+}

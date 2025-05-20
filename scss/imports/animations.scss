@@ -1,6 +1,7 @@
-@use '../_variables' as *;
-@use 'animation/properties';
-@use 'animation/fade';
+@import
+	"animation/properties",
+	// animation
+	"animation/fade";
 
 //	count        specifies the number of times an animation is played. Default 1
 //	duration     specifies how many seconds or milliseconds an animation takes to complete one cycle. Default 0
@@ -29,7 +30,7 @@ $ListAnimSetting : (
 		opacity: 0;
 
 		&.is-visible {
-			@include fade.fadeIn(1, 0.7s, .2s, $ease-in);
+			@include fadeIn(1, 0.7s, .2s, $ease-in);
 		}
 	}
 	// fade-in-down
@@ -37,7 +38,7 @@ $ListAnimSetting : (
 		opacity: 0;
 
 		&.is-visible {
-			@include fade.fadeInDown(1, 0.8s, .25s, $ease-in);
+			@include fadeInDown(1, 0.8s, .25s, $ease-in);
 		}
 	}
 	// fade-in-up
@@ -45,7 +46,7 @@ $ListAnimSetting : (
 		opacity: 0;
 
 		&.is-visible {
-			@include fade.fadeInUp(1, 0.8s, .25s, $ease-in);
+			@include fadeInUp(1, 0.8s, .25s, $ease-in);
 		}
 	}
 	// fade-in-left
@@ -53,7 +54,7 @@ $ListAnimSetting : (
 		opacity: 0;
 
 		&.is-visible {
-			@include fade.fadeInLeft(1, 0.8s, .25s, $ease-in);
+			@include fadeInLeft(1, 0.8s, .25s, $ease-in);
 		}
 	}
 	// fade-in-right
@@ -62,7 +63,7 @@ $ListAnimSetting : (
 		opacity: 0;
 
 		&.is-visible {
-			@include fade.fadeInRight(1, 0.8s, .25s, $ease-in);
+			@include fadeInRight(1, 0.8s, .25s, $ease-in);
 		}
 	}
 }

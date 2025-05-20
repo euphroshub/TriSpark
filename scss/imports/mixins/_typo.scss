@@ -1,11 +1,6 @@
 @use "sass:math";
-@use '../../_variables' as vars;
 
 @mixin fsize($px, $important: false) {
-	$rem: math.div($px, vars.$font-base-unit);
-	@at-root {
-		& {
-			font-size: #{$rem}rem #{'!important' if $important};
-		}
-	}
+	$rem: ($px / $font-base-unit);
+	font-size: #{$rem}rem;
 }

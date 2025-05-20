@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
-import * as sass from 'sass';
 
 export default defineConfig({
   base: '/',
@@ -63,12 +62,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "@scss/variables.scss" as *;`,
-        implementation: sass,
-        sassOptions: {
-          outputStyle: 'expanded',
-          sourceMap: true
-        }
+        additionalData: `@import "@scss/variables.scss";`
       }
     }
   },

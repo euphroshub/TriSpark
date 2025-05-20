@@ -1,7 +1,3 @@
-@use '../../_variables' as vars;
-@use '../mediaq';
-@use '_typo' as typo;
-
 @mixin input-placeholder($font-size, $line-height, $color) {
 	::-webkit-input-placeholder {
 		color: $color;
@@ -86,27 +82,40 @@
 @mixin label-up() {
 	&.m-label {
 		--label-padding: 15px;
+
 		position: relative;
 
 		label {
 			position: absolute;
 			top: var(--label-padding);
 			left: var(--label-padding);
-			margin: 0;
+			@include fsize(16);
+			transition: all 0.2s $decel-curve;
 			pointer-events: none;
-			transition: all 0.2s vars.$decel-curve;
+			margin: 0;
+			// For hardcoded required
 			display: flex;
 			align-items: center;
-			@include typo.fsize(16);
+			
 		}
 
-		&.is-up label {
-			@include typo.fsize(12);
-			& {
+		&.is-up {
+			label {
+				@include fsize(12);
 				color: var(--white);
 				top: calc((var(--label-padding) + 5px) * -1);
 			}
 		}
+
+		/*
+		&.is-white {
+			&.is-up {
+				label {
+					color: var(--white);
+				}
+			}
+		}
+		*/
 	}
 }
 

@@ -1,17 +1,3 @@
-@use '../_variables' as *;
-@use '../imports/mediaq' as *;
-@use '../imports/mixins/typo' as typo;
-
-@mixin nav-link-styles {
-    position: relative;
-    font-size: var(--mainNavFontSize);
-    font-family: var(--font-secondary);
-    font-weight: var(--font-bold);
-    text-transform: uppercase;
-    letter-spacing: 1.18px;
-    color: var(--white);
-}
-
 .m-bannerSpacer {
     transition: all .45s $ease-in;
 }
@@ -20,7 +6,7 @@ body {
     ///////////////////////////////////////////////////////
     //MEDIA QUERIES
     
-    @include media('<LG') {
+    @include mediaq('<LG') {
         &.nav-active {
             overflow: hidden;
             position: fixed;
@@ -92,38 +78,14 @@ body {
     &__nav {
         &__main {
             &--list {
-                > ul {
-                    > li {
-                        > span {
-                            > a {
-                                @include nav-link-styles;
-
-                                &:before {
-                                    & {
-                                        opacity: 0;
-                                        content: '';
-                                        position: absolute;
-                                        left: 50%;
-                                        transform: translateX(-50%);
-                                        bottom: -80%;
-                                        width: 2px;
-                                        background: var(--white);
-                                        height: 10px;
-                                        transition: all $ease-in .3s;
-                                    }
-                                }
-
-                                &:hover, &:active, &:focus {
-                                    & {
-                                        color: var(--primary);
-                                    }
-
-                                    &:before {
-                                        & {
-                                            opacity: 1;
-                                        }
-                                    }
-                                }
+                ul {
+                    li {
+                        span {
+                            button {
+                                outline: none;
+                                background: transparent;
+                                border: none;
+                                cursor: pointer;
                             }
                         }
                     }
@@ -141,17 +103,15 @@ body {
     //MEDIA QUERIES
         
     // Mobile style
-    @include media('<LG') {
-        & {
-            --mainPaddingTop: 36px;
-            --mainPaddingBot: 40px;
-            --mainLogoWidth: 135px;
-            --mobileLogoWidth: 120px;
-            --mobileLogoTopSpacing: 40px;
-            --mainElementPadding: 10px;
-            --secondaryElementPadding: 5px;
-            --scrollPaddingBottom: 40px;
-        }
+    @include mediaq('<LG') {
+        --mainPaddingTop: 36px;
+        --mainPaddingBot: 40px;
+        --mainLogoWidth: 135px;
+        --mobileLogoWidth: 120px;
+        --mobileLogoTopSpacing: 40px;
+        --mainElementPadding: 10px;
+        --secondaryElementPadding: 5px;
+        --scrollPaddingBottom: 40px;
 
         &__row {
             display: flex;
@@ -220,90 +180,92 @@ body {
                 padding: var(--mainPaddingTop) 0 var(--mainPaddingBot) 0;
 
                 &--list {
-                    margin: 0;
-                    padding: 0;
-                    list-style: none;
-
-                    > li {
-                        position: relative;
-                        padding: 0;
+                    > ul {
                         margin: 0;
+                        padding: 0;
+                        list-style: none;
 
-                        // Background color when its open
-                        &:before {
-                            content: '';
-                            position: absolute;
-                            top: 0;
-                            bottom: 0;
-                            left: 50%;
-                            right: 50%;
-                            //width: 150vw;
-                            width: 100%;
-                            transform: translate3d(-50%, 0, 0);
-                            background: var(--black);
-                            opacity: 0;
-                            transition: all $ease-in .3s;
-                        }
-                        
-                        > span {
+                        > li {
                             position: relative;
-                            padding: var(--mainElementPadding) 0;
-                            display: flex;
-                            align-items: center;
-                            justify-content: space-between;
+                            padding: 0;
+                            margin: 0;
 
-                            > a {
-                                @include typo.fsize(18);
-                                letter-spacing: 1.18px;
-                                text-transform: uppercase;  
-                                color: var(--primary);
-                                font-weight: var(--font-bold);
-                                font-family: var(--font-secondary);
-                            }
-                        }
-
-                        // Has children - dropdown menu
-                        &.has-children {
-                            > span {
-                                display: flex;
-
-                                button {
-                                    padding-left: 10px;
-                                    flex-grow: 1;
-        
-                                    svg {
-                                        display: block;
-                                        width: 30px;
-                                        transform: rotate(0);
-                                        transition: all .45s $ease-in;
-                                    }
-                                }
-
-                                .-navSubArrow {
-                                    display: none;
-                                }
+                            // Background color when its open
+                            &:before {
+                                content: '';
+                                position: absolute;
+                                top: 0;
+                                bottom: 0;
+                                left: 50%;
+                                right: 50%;
+                                //width: 150vw;
+                                width: 100%;
+                                transform: translate3d(-50%, 0, 0);
+                                background: var(--black);
+                                opacity: 0;
+                                transition: all $ease-in .3s;
                             }
                             
-                            // Drop down
-                            > ul {
+                            > span {
                                 position: relative;
-                                z-index: 0;
-                                list-style: none;
-                                height: 0;
-                                pointer-events: none;
-                                opacity: 0;
-                                transition: all .3s $ease-in;
-                                padding: 0;
-                                margin-top: 0;
+                                padding: var(--mainElementPadding) 0;
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
 
-                                > li {
-                                    margin: 0;
-                                    padding: 0 0 20px 0;
+                                > a {
+                                    @include fsize(18);
+                                    letter-spacing: 1.18px;
+                                    text-transform: uppercase;  
+                                    color: var(--primary);
+                                    font-weight: var(--font-bold);
+                                    font-family: var(--font-secondary);
+                                }
+                            }
+
+                            // Has children - dropdown menu
+                            &.has-children {
+                                > span {
+                                    display: flex;
+
+                                    button {
+                                        padding-left: 10px;
+                                        flex-grow: 1;
+    
+                                        svg {
+                                            display: block;
+                                            width: 30px;
+                                            transform: rotate(0);
+                                            transition: all .45s $ease-in;
+                                        }
+                                    }
+
+                                    .-navSubArrow {
+                                        display: none;
+                                    }
+                                }
+                                
+                                // Drop down
+                                > ul {
+                                    position: relative;
+                                    z-index: 0;
+                                    list-style: none;
+                                    height: 0;
+                                    pointer-events: none;
                                     opacity: 0;
-                                    transition: all .2s $ease-in;
+                                    transition: all .3s $ease-in;
+                                    padding: 0;
+                                    margin-top: 0;
 
-                                    &:last-child {
-                                        padding: 0 0 45px 0;
+                                    > li {
+                                        margin: 0;
+                                        padding: 0 0 20px 0;
+                                        opacity: 0;
+                                        transition: all .2s $ease-in;
+
+                                        &:last-child {
+                                            padding: 0 0 45px 0;
+                                        }
                                     }
                                 }
                             }
@@ -320,7 +282,7 @@ body {
                                 padding: var(--secondaryElementPadding) 0;
                                 
                                 > a {
-                                    @include typo.fsize(16);
+                                    @include fsize(16);
                                     color: var(--white);
                                     font-weight: var(--font-semi-bold);
                                     font-family: var(--font-secondary);
@@ -370,18 +332,15 @@ body {
     }
 
     // faire media query pour SM, ipad etc ajuster les fonts et les padding et grosseur du logo. IPAD mini res start a 768px. donc on ne peut pas start ca a MD.
-    @include media('>SM') {
-        & {
-            --mainPaddingTop: 46px;
-            --mainPaddingBot: 50px;
-            --mainLogoWidth: 165px;
-            --mobileLogoWidth: 150px;
-            --mobileLogoTopSpacing: 75px;
-            --mainElementPadding: 15px;
-            --secondaryElementPadding: 10px;
-            --scrollPaddingBottom: 60px;
-        }
-
+    @include mediaq('>SM') {
+        --mainPaddingTop: 46px;
+        --mainPaddingBot: 50px;
+        --mainLogoWidth: 165px;
+        --mobileLogoWidth: 150px;
+        --mobileLogoTopSpacing: 75px;
+        --mainElementPadding: 15px;
+        --secondaryElementPadding: 10px;
+        --scrollPaddingBottom: 60px;
         &__nav {
             &__main {
                 &--list {
@@ -389,7 +348,7 @@ body {
                         > li {
                             > span {
                                 > a {
-                                    @include typo.fsize(22);
+                                    @include fsize(22);
                                 }
                             }
                         }
@@ -403,7 +362,7 @@ body {
                         > li {
                             > span {
                                 > a {
-                                    @include typo.fsize(20);
+                                    @include fsize(20);
                                 }
                             }
                         }
@@ -413,17 +372,15 @@ body {
         }
     }
 
-    @include media('>MD') {
-        & {
-            --mainPaddingTop: 76px;
-            --mainPaddingBot: 80px;
-            --mainLogoWidth: 165px;
-            --mobileLogoWidth: 200px;
-            --mobileLogoTopSpacing: 100px;
-            --mainElementPadding: 25px;
-            --secondaryElementPadding: 15px;
-            --scrollPaddingBottom: 100px;
-        }
+    @include mediaq('>MD') {
+        --mainPaddingTop: 76px;
+        --mainPaddingBot: 80px;
+        --mainLogoWidth: 165px;
+        --mobileLogoWidth: 200px;
+        --mobileLogoTopSpacing: 100px;
+        --mainElementPadding: 25px;
+        --secondaryElementPadding: 15px;
+        --scrollPaddingBottom: 100px;
 
         &__nav {
             &__container {
@@ -436,7 +393,7 @@ body {
                         > li {
                             > span {
                                 > a {
-                                    @include typo.fsize(22);
+                                    @include fsize(22);
                                 }
                             }
                         }
@@ -450,7 +407,7 @@ body {
                         > li {
                             > span {
                                 > a {
-                                    @include typo.fsize(20);
+                                    @include fsize(20);
                                 }
                             }
                         }
@@ -467,21 +424,17 @@ body {
     // BEGIN Navigation Desktop
     //__________________________________________________________
     // Desktop style
-    @include media('>LG') {
-        & {
-            --innerPadding: 25px;
-            --navLogoWidth: 150px;
-            --verticalPadding: 15px;
-            --dropDownWidth: 400px;
-            --mainNavFontSize: 14px;
-            --dropDownFontSize: 13px;
-            --secondaryNavFontSize: 13px;
-            --secondaryNavSpacing: 15px;
-        }
+    @include mediaq('>LG') {
+        --innerPadding: 25px;
+        --navLogoWidth: 150px;
+        --verticalPadding: 15px;
+        --dropDownWidth: 400px; // ne sert pas pour l'instant. a modifier si on ajoute des dropdown menu.
+        --mainNavFontSize: 14px;
+        --dropDownFontSize: 13px;
+        --secondaryNavFontSize: 13px;
+        --secondaryNavSpacing: 15px;
 
-        & {
-            padding: 0;
-        }
+        padding: 0;
 
         &:before {
             display: none;
@@ -561,7 +514,13 @@ body {
 
                                 // p-e faire une animation pour le hover avec un before. s'inspirer du before de has-children ? a voir.
                                 > a {
-                                    @include nav-link-styles;
+                                    position: relative;
+                                    font-size: var(--mainNavFontSize);
+                                    font-family: var(--font-secondary);
+                                    font-weight: var(--font-bold);
+                                    text-transform: uppercase;
+                                    letter-spacing: 1.18px;
+                                    color: var(--white);
 
                                     &:before {
                                         opacity: 0;
@@ -759,17 +718,15 @@ body {
         }
     }
 
-    @include media('>XLG') {
-        & {
-            --innerPadding: 35px; 
-            --navLogoWidth: 160px;
-            --verticalPadding: 20px;
-            --dropDownWidth: 450px;
-            --dropDownFontSize: 14px;
-            --mainNavFontSize: 15px;
-            --secondaryNavFontSize: 14px;
-            --secondaryNavSpacing: 15px;
-        }
+    @include mediaq('>XLG') {
+        --innerPadding: 35px; 
+        --navLogoWidth: 160px;
+        --verticalPadding: 20px;
+        --dropDownWidth: 450px; // ne sert pas pour l'instant. a modifier si on ajoute des dropdown menu.
+        --dropDownFontSize: 14px; // ne sert pas pour l'instant. a modifier si on ajoute des dropdown menu.
+        --mainNavFontSize: 15px;
+        --secondaryNavFontSize: 14px;
+        --secondaryNavSpacing: 15px;
 
         &__nav {    
             &__main {
@@ -778,24 +735,20 @@ body {
         }
     }
 
-    @include media('>XXLG') {
-        & {
-            --innerPadding: 40px;
-            --verticalPadding: 24px;
-            --dropDownWidth: 500px;
-            --mainNavFontSize: 18px;
-            --dropDownFontSize: 16px;
-            --secondaryNavFontSize: 16px;
-            --secondaryNavSpacing: 20px;
-        }
+    @include mediaq('>XXLG') {
+        --innerPadding: 40px;
+        --verticalPadding: 24px;
+        --dropDownWidth: 500px;
+        --mainNavFontSize: 18px;
+        --dropDownFontSize: 16px;
+        --secondaryNavFontSize: 16px;
+        --secondaryNavSpacing: 20px;
     }
 
-    @include media('>1850px') {
-        & {
-            --innerPadding: 50px;
-            --dropDownWidth: 550px;
-            --secondaryNavSpacing: 25px;
-        }
+    @include mediaq('>1850px') {
+        --innerPadding: 50px;
+        --dropDownWidth: 550px;
+        --secondaryNavSpacing: 25px;
     }
 }
 //________________________________________________________

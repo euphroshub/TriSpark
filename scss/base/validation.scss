@@ -1,7 +1,4 @@
-@use '../_variables' as vars;
-@use '../_config' as config;
-@use '../imports/mixin';
-@use 'sass:color';
+@import '../variables', '../config', '../imports/mixin.scss';
 
 .Validation {
 	border-radius: 4px;
@@ -12,53 +9,46 @@
 
 	&.has-success {
 		background: var(--success);
-		color: color.adjust(vars.$success, $lightness: -60%);
+		color: darken($success, 60%);
 	}
 
 	&.has-warning {
 		background: var(--warning);
-		color: color.adjust(vars.$warning, $lightness: -60%);
+		color: darken($warning, 60%);
 	}
 
 	&.has-error {
 		background: var(--error);
-		color: color.adjust(vars.$error, $lightness: -60%);
+		color: darken($error, 60%);
 	}
 }
 
 .has-error , .has-error  + label {  
-	color: color.adjust(vars.$error, $lightness: -40%);
+	color: darken($error, 40%);
 }
 
 .has-error {
 	&.c-FormElement {
-		color: color.adjust(vars.$error, $lightness: -40%);
+		color: darken($error, 40%);
 	}  
 }
 
 .has-warning, .has-warning + label {  
-	color: color.adjust(vars.$warning, $lightness: -45%); 
+	color: darken($warning, 45%); 
 }
 
 .has-warning {
 	&.c-FormElement {
-		color: color.adjust(vars.$warning, $lightness: -45%); 
+		color: darken($warning, 45%); 
 	}  
 }
 
 .has-success, .has-success + label{
-	color: color.adjust(vars.$success, $lightness: -40%); 
+	color: darken($success, 40%); 
 }
 
 .has-success {
 	&.c-FormElement {
-		color: color.adjust(vars.$success, $lightness: -40%); 
+		color: darken($success, 40%); 
 	}  
-}
-
-// **---------------------------------------------------**
-//  Form validation
-// -------------------------------------------------------
-.form-validation {
-	// ... existing code ...
 }

@@ -1,9 +1,16 @@
 // **---------------------------------------------------**
 //  Additionnal SCSS files imported from the imports folder.
 // -------------------------------------------------------
-@use 'imports/mixin.scss';
-@use 'imports/mediaq.scss';
-@use 'imports/mediaq-export.scss';
-@use 'imports/color.scss';
-@use 'imports/spacing.scss';
-@use 'imports/grid';
+@import
+  // mixins
+  'imports/mixin.scss',
+
+  'imports/mediaq.scss',
+  'imports/mediaq-export.scss',
+
+  // class generator
+  'imports/color.scss',
+  'imports/spacing.scss',
+
+  // Modules
+  'imports/grid';

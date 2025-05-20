@@ -1,50 +1,30 @@
-@use '../../_variables' as vars;
-@use '../mediaq';
-
 @mixin make-button() {
-	& {
-		background: transparent;
-		border: 2px solid var(--primary);
-		color: var(--primary);
-		display: inline-block;
-		font-size: 16px;
-		font-family: var(--font-secondary);
-		letter-spacing: 1.3px;
-		font-weight: var(--font-bold);
-		line-height: 1.2;
-		padding: 13px 35px; 
-		text-transform: uppercase;
-		text-decoration: none;
-		vertical-align: middle;
-		transition: all .35s vars.$ease-in;
+	background: transparent;
+	border: 2px solid var(--primary);
+	color: var(--primary);
+	display: inline-block;
+	font-size: 16px;
+	font-family: var(--font-secondary);
+	letter-spacing: 1.3px;
+	font-weight: var(--font-bold);
+	line-height: 1.2;
+	padding: 13px 35px; 
+	text-transform: uppercase;
+	text-decoration: none;
+	vertical-align: middle;
+	transition: all .35s $ease-in;
+
+	@include mediaq('>LG') {
+		font-size: 18px;
+		padding: 15px 38px;
 	}
 
-	&:hover {
-		& {
-			background: var(--primary);
-			color: var(--white);
-		}
+	@include mediaq('>XLG') {
+		padding: 18px 43px
 	}
 
-	@at-root {
-		@include mediaq.media('>#{vars.$scr-lg}') {
-			#{&} {
-				font-size: 18px;
-				padding: 15px 38px;
-			}
-		}
-
-		@include mediaq.media('>#{vars.$scr-xlg}') {
-			#{&} {
-				padding: 18px 43px;
-			}
-		}
-
-		@include mediaq.media('>#{vars.$scr-xxlg}') {
-			#{&} {
-				padding: 22px 45px;
-				font-size: 20px;
-			}
-		}
+	@include mediaq('>XXLG') {
+		padding: 22px 45px;
+		font-size: 20px;
 	}
 }

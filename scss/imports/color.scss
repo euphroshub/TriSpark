@@ -1,5 +1,3 @@
-@use '../_config' as *;
-
 // **---------------------------------------------------**
 //  BlockColor--
 // -------------------------------------------------------
@@ -60,27 +58,5 @@
 
 	.LinkColor--#{$name} {
 		--body-link-color: #{variable($name)};
-	}
-}
-
-// Color classes
-@each $name, $value in $theme-colors {
-	.c-#{$name} {
-		color: $value;
-	}
-
-	.bg-#{$name} {
-		background-color: $value;
-	}
-}
-
-// Monochrome classes
-@each $name, $value in $theme-monochromes {
-	.c-#{$name} {
-		color: $value;
-	}
-
-	.bg-#{$name} {
-		background-color: $value;
 	}
 }

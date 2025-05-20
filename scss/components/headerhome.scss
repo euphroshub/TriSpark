@@ -1,16 +1,11 @@
-@use '../_variables' as *;
-@use '../imports/mediaq' as *;
-
 .c-headerHome {
-    & {
-        --headerHomeTopPadding: 150px;
-        --headerHomeBottomPadding: 180px;
-        --headerHomeImgPadding: 91px;
-        --headerHomeContentWidth: 320px;
-        --headerHomeTitleWidth: 296px;
-        --headerHomeTextSpacing: 30px;
-        --headerHomeBtnSpacing: 44px;
-    }
+    --headerHomeTopPadding: 150px;
+    --headerHomeBottomPadding: 180px;
+    --headerHomeImgPadding: 91px;
+    --headerHomeContentWidth: 320px;
+    --headerHomeTitleWidth: 296px;
+    --headerHomeTextSpacing: 30px;
+    --headerHomeBtnSpacing: 44px;
     
     position: relative;
     padding: var(--headerHomeTopPadding) 0 var(--headerHomeBottomPadding) 0;
@@ -71,18 +66,14 @@
     //________________________________________________________
     //MEDIA QUERIES
 
-    @include media('>428px') {
-        & {
-            --headerHomeContentWidth: 378px;
-        }
+    @include mediaq('>428px') {
+        --headerHomeContentWidth: 378px;
     }
 
-    @include media('>XS') {
-        & {
-            --headerHomeTitleWidth: initial;
-            --headerHomeContentWidth: 400px;
-            --headerHomeTextWidth: 360px;
-        }
+    @include mediaq('>XS') {
+        --headerHomeTitleWidth: initial;
+        --headerHomeContentWidth: 400px;
+        --headerHomeTextWidth: 360px;
 
         &__content {
             &--text {
@@ -92,51 +83,41 @@
         }
     }
 
-    @include media('>SM') {
-        & {
-            --headerHomeImgPadding: 105px;
-            --headerHomeTopPadding: 156px;
-            --headerHomeBottomPadding: 271px;
-            --headerHomeContentWidth: 600px;
-            --headerHomeTextWidth: 560px;
-        }
+    @include mediaq('>SM') {
+        --headerHomeImgPadding: 105px;
+        --headerHomeTopPadding: 156px;
+        --headerHomeBottomPadding: 271px;
+        --headerHomeContentWidth: 600px;
+        --headerHomeTextWidth: 560px;
     }
 
-    @include media('>MD') {
-        & {
-            --headerHomeTopPadding: 176px;
-            --headerHomeBottomPadding: 291px;
-            --headerHomeContentWidth: 640px;
-            --headerHomeContentWidth: 600px;
-            --headerHomeBtnSpacing: 50px;
-        }
+    @include mediaq('>MD') {
+        --headerHomeTopPadding: 176px;
+        --headerHomeBottomPadding: 291px;
+        --headerHomeContentWidth: 640px;
+        --headerHomeContentWidth: 600px;
+        --headerHomeBtnSpacing: 50px;
     }
 
-    @include media('>LG') {
-        & {
-            --headerHomeTopPadding: 206px;
-            --headerHomeImgPadding: 98px;
-            --headerHomeBtnSpacing: 60px;
-            --headerHomeContentWidth: 700px;
-        }
+    @include mediaq('>LG') {
+        --headerHomeTopPadding: 206px;
+        --headerHomeImgPadding: 98px;
+        --headerHomeBtnSpacing: 60px;
+        --headerHomeContentWidth: 700px;
     }
 
-    @include media('>XLG') {
-        & {
-            --headerHomeTopPadding: 236px;
-            --headerHomeImgPadding: 112px;
-            --headerHomeBtnSpacing: 70px;
-            --headerHomeContentWidth: 760px;
-        }
+    @include mediaq('>XLG') {
+        --headerHomeTopPadding: 236px;
+        --headerHomeImgPadding: 112px;
+        --headerHomeBtnSpacing: 70px;
+        --headerHomeContentWidth: 760px;
     }
 
-    @include media('>XXLG') {
-        & {
-            --headerHomeTopPadding: 264px;
-            --headerHomeImgPadding: 120px;
-            --headerHomeBtnSpacing: 80px;
-            --headerHomeContentWidth: 840px;
-            --headerHomeTextWidth: 800px;
-        }
+    @include mediaq('>XXLG') {
+        --headerHomeTopPadding: 264px;
+        --headerHomeImgPadding: 120px;
+        --headerHomeBtnSpacing: 80px;
+        --headerHomeContentWidth: 840px;
+        --headerHomeTextWidth: 800px;
     }
 }

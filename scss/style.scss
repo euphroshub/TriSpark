@@ -1,29 +1,11 @@
-// **---------------------------------------------------**
-//  Core imports
-// -------------------------------------------------------
-@use 'sass:color';
-@use 'sass:math';
-@use '_variables' as *;
-@use '_config' as *;
-@use '_imports' as *;
-
-// **---------------------------------------------------**
-//  Base styles
-// -------------------------------------------------------
-@use 'base/_fonts';
-@use 'base/base';
-@use 'base/button';
-@use 'base/form';
-@use 'base/validation';
-@use '_helpers' as *;
-
-// **---------------------------------------------------**
-//  Components
-// -------------------------------------------------------
-@use '_components';
-@use 'imports/animations';
-@use 'components/navigation';
-@use 'components/footer';
-@use 'components/headerhome';
-@use 'components/global';
-@use 'components/accordions';
+@import 'base/_fonts';
+@import '_variables', '_config', '_imports', 'base/base', 'base/button', 'base/form', 'base/validation', '_helpers';
+@import 'imports/animations';
+@import 'components/navigation';
+@import 'components/footer';
+@import 'components/headerhome';
+@import 'components/headerdouble';
+@import 'components/headercontact';
+@import 'components/global';
+@import 'components/accordions';
+@import 'components/modal';

@@ -1,7 +1,3 @@
-@use '../_variables' as *;
-@use '../_config' as config;
-@use 'mediaq';
-
 // **---------------------------------------------------**
 //  Spacing utilities
 // -------------------------------------------------------
@@ -9,18 +5,16 @@
 	--spacing: #{$spacing-initial};
 	--spacing-responsive: #{$spacing-initial};
 	--spacing-increment: #{$spacing-increment};
-	--spacing-ratio: #{$spacing-ratio};
-}
 
-// Generate responsive spacing classes for each breakpoint
-$i: 1;
-@each $breakpoint, $value in config.$breakpoints {
-	@include mediaq.media('>#{$value}') {
-		:root {
-			--spacing-responsive: calc(var(--spacing) + (var(--spacing-increment) * #{$i}));
+	$i: 1;
+	@each $breakpoint, $value in $breakpoints {
+		@if $value > 767 {
+			@include mediaq('>#{$breakpoint}') {
+				--spacing-responsive: calc( var(--spacing) + (var(--spacing-increment) * #{$i}) );
+			}
+			$i: $i + 1;
 		}
 	}
-	$i: $i + 1;
 }
 
 // **---------------------------------------------------**

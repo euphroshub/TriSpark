@@ -1,17 +1,12 @@
-@use '../_variables' as *;
-@use '../_config' as config;
-@use '../imports/mixin';
-@use '../imports/mediaq' as *;
-@use '../imports/mixins/_form' as form;
-@use '../imports/mixins/_typo' as typo;
+@import '../variables', '../config', '../imports/mixin.scss';
 
 .c-formElement {
-	@include form.input-placeholder(var(--font-base), inherit, inherit);
+	@include input-placeholder(var(--font-base), inherit, inherit);
 	margin-bottom: var(--margin-normal);
 	color: var(--white);
 
 	input {
-		@include form.input-reset();
+		@include input-reset();
 		color: var(--white);
 	}
 
@@ -38,38 +33,32 @@
 		margin-bottom: 35px;
 		outline: 1px solid var(--white);
 		border-radius: 5px;
-		@include form.label-up();
+		@include label-up();
 
 		input {
-			@include form.input-reset();
+			@include input-reset();
 			color: var(--white);
 		}
 
 		// Colored line on focus
 		input:focus ~ .c-formElement--focusLine {
-			& {
-				border-color: var(--secondary);
-			}
+			border-color: var(--secondary);
 		}
 
 		textarea:focus ~ .c-formElement--focusLine {
-			& {
-				border-color: var(--secondary);
-			}
+			border-color: var(--secondary);
 		}
 
 		&--primary {
 			outline: 1px solid var(--primary);
 			input {
-				@include form.input-reset();
+				@include input-reset();
 				color: var(--white);
 			}
 		}
 
-		@include media('>MD') {
-			& {
-				margin-bottom: 45px;
-			}
+		@include mediaq('>MD') {
+			margin-bottom: 45px;
 		}
 	}
 
@@ -77,21 +66,17 @@
 		========================================================================== */
 	&--checkbox,
 	&--radio {
-		@include form.input-checkbox-reset();
+		@include input-checkbox-reset();
 
 		&:first-child ~ & {
-			& {
-				margin-left: 0.8em;
-			}
+			margin-left: 0.8em;
 		}
 
 		// Checked state 
 		:checked + label {
 			&::before {
-				& {
-					background: var(--primary);
-					border-color: var(--primary);
-				}
+				background: var(--primary);
+				border-color: var(--primary);
 			}
 		}
 	}
@@ -99,9 +84,7 @@
 	&--radio {
 		label {
 			&::before {
-				& {
-					border-radius: 40px;
-				}
+				border-radius: 40px;
 			}
 		}
 	}
@@ -115,9 +98,7 @@
 
 		// checked state
 		input:checked ~ label svg path {
-			& {
-				stroke-dashoffset: 0;
-			}
+			stroke-dashoffset: 0;
 		}
 		
 		label {
@@ -190,9 +171,7 @@
 
 			// Colored line on focus
 			select:focus ~ .c-formElement--focusLine {
-				& {
-					border-color: var(--secondary);
-				}
+				border-color: var(--secondary);
 			}
 
 			&--primary {
@@ -207,10 +186,8 @@
 				}
 			}
 
-			@include media('>MD') {
-				& {
-					margin-bottom: 25px;
-				}
+			@include mediaq('>MD') {
+				margin-bottom: 25px;
 			}
 		}
 	}
@@ -262,19 +239,15 @@
 			}
 		}
 
-		@include media('>LG') {
+		@include mediaq('>LG') {
 			label {
-				& {
-					margin-left: 25px;
-				}
+				margin-left: 25px
 			}
 		}
 
-		@include media('>XLG') {
+		@include mediaq('>XLG') {
 			label {
-				& {
-					margin-left: 30px;
-				}
+				margin-left: 30px
 			}
 		}
 	}
@@ -283,7 +256,7 @@
 		========================================================================== */
 	&--upload {
 		input {
-			@include form.visually-hidden();
+			@include visually-hidden();
 		}
 
 		label {
@@ -312,7 +285,7 @@
 			}
 
 			input {
-				@include form.visually-hidden();
+				@include visually-hidden();
 			}
 
 			label {
@@ -342,10 +315,8 @@
 				}
 			}
 
-			@include media('>MD') {
-				& {
-					margin-bottom: 25px;
-				}
+			@include mediaq('>MD') {
+				margin-bottom: 25px;
 			}
 		}
 	}
@@ -387,8 +358,23 @@
 	/* Submit Button
 		========================================================================== */
 	&--submit {
-		margin-top: 20px;
-		text-align: center;
+		[type="submit"] {
+			// when disabled (two class to keep backward compatibility with older Core)
+			&.disabled,
+			&.is-disabled {
+				opacity: .45;
+				pointer-events: none;
+			}
+		}
+
+		span {
+			height: 0;
+			opacity: 0;
+			position: absolute;
+			visibility: hidden;
+			width: 0;
+			z-index: -9999;
+		}
 	}
 
 	&.has-error, &.has-success, &.has-warning {
@@ -404,7 +390,7 @@
 		color: var(--primary);
 
 		input {
-			@include form.input-reset();
+			@include input-reset();
 			color: var(--white);
 		}
 	}
@@ -420,15 +406,5 @@ label, .c-label {
 	svg {
 		height: 24px;
 		width: 24px;
-	}
-}
-
-@include media('>MD') {
-	.c-formElement {
-		&--upload {
-			&--bordered {
-				margin-bottom: 25px;
-			}
-		}
 	}
 }

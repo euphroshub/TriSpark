@@ -1,6 +1,3 @@
-@use 'sass:meta';
-@use '../_config' as *;
-
 /**
  * Generates a JSON string with each breakpoint's value and information about
  * which of the breakpoints are currently active (i.e. viewport width >= breakpoint)
@@ -9,7 +6,7 @@
  * @param {String} $target-name Name of breakpoint to evaluate
  * @return {String} Resulting JSON string
  */
-@function mq-breakpoints-to-json($target-name) {
+ @function mq-breakpoints-to-json($target-name) {
   $breakpoints-json: ();
   $target-value: map-get($breakpoints, $target-name);
 
@@ -26,14 +23,18 @@
  * 
  * @param {String} $element Element to append JSON data to
  */
-@mixin mq-export($element: 'body::after') {
+@mixin mq-export($element) {
   @each $name, $value in $breakpoints {
-    @media (min-width: $value) {
+    @include mediaq('>=#{$name}') {
       #{$element} {
-        content: '#{$name}';
+        content: mq-breakpoints-to-json($name);
+        display: block;
+        height: 0;
+        overflow: hidden;
+        width: 0;
       }
     }
   }
 }
 
-@include mq-export(if(meta.variable-exists('im-export-element'), $im-export-element + '::after', 'body::after'));
+@include mq-export(if(variable-exists('im-export-element'), $im-export-element + '::after', 'body::after'));
